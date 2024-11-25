@@ -1,3 +1,32 @@
+## What is Partner SPIs?
+
+
+## What are the available Chargebee Partner SPIs? 
+Currently, Chargebee offer SPIs for the following capabilities:
+
+- [Tax](https://chargebee.mintlify.app/api-reference/v2/docs/Overview) 
+- [Tax Registration Validation](https://chargebee.mintlify.app/api-reference/v2/docs/Overview)
+
+These SPIs enable partners to build adapters by implementing the SPI endpoints. The SPIs are defined in the Open API spec under `spec/spi` folder. 
+
+## Steps to add/update a SPI via open api spec? 
+- Add **openapi.yml** file under `spec/spi/` folder, like spec/spi/**abc**
+- Add config details in [spec.config](spec.config) file
+- Command to validate open api spec `sh gradlew validateSpec_abc --warning-mode all --stacktrace`
+- Command to generate open api spec `sh gradlew generateSpec_abc --warning-mode all --stacktrace`
+- Java models, clients and doc will be generated under `generated/abc` folder
+
+## General Commands
+- Validate the open api spec `sh gradlew validateSpec --warning-mode all --stacktrace`
+- Generate models, api client, docs etc `sh gradlew generateSpec --warning-mode all --stacktrace`
+  - New folder `generated` will be created which will have all models, clients, docs etc
+- Build `sh gradlew build` spi jar will be generated to ./build/libs/cb-provider-spi.jar
+
+## Commands for Chargebee internal usage:
+
+
+
+<!--
 ## Chargebee's Open API Spec
 Service Provider Interfaces for Chargebee's capabilities
 - [Open api tax_spec](spec/spi/openapi_tax.yml)
@@ -111,7 +140,7 @@ public class Example {
 }
 
 ```
-
+-->
 
 ## JSON Schema validation
 Tax provider capabilities for new tax providers will be validated against a constantly updating JSON Schema, to validate the correctness and completeness of configurations. JSON Schema can be referenced below.
