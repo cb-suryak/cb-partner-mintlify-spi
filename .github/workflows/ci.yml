@@ -1,0 +1,17 @@
+name: CI Workflow
+
+on:
+  pull_request:
+    types: [closed]
+    branches: ["dev", "main"]
+  push:
+    branches:
+      - 'release/*'
+
+jobs:
+  build:
+    uses: chargebee/cb-cicd-pipelines/.github/workflows/gradle-library-ci-workflow.yml@v1.23.0
+    secrets: inherit
+    with:
+      CI_ROLE: arn:aws:iam::606027973764:role/cb-builds-us-e1-cb_provider_spi-ci-role
+      GENERATE_OPEN_API: true

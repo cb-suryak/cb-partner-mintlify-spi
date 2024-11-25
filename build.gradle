@@ -1,0 +1,122 @@
+import groovy.json.JsonSlurper
+import org.openapitools.generator.gradle.plugin.tasks.ValidateTask
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+plugins {
+    id "idea"
+    id "java"
+    id 'maven-publish'
+    id "org.openapi.generator" version "7.0.1"
+}
+
+group build_group
+version build_version
+
+sourceSets {
+    main.resources.srcDirs = ['spec/capabilities']
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
+}
+
+def loadSpecConfig() {
+    def configJson = "[" + file('spec.config').text + "]"
+
+    def config = new JsonSlurper().parseText(configJson)
+
+    project.ext.specConfig = config as ArrayList
+}
+
+tasks.register("generateSpec")
+
+tasks.register("validateSpec")
+
+def openApiTask() {
+    loadSpecConfig()
+
+    for (int i = 0; i < specConfig.size(); i++) {
+        def spec = specConfig[i]
+
+        def validateTaskName = "validateSpec_$spec.name"
+
+        def generateTaskName = "generateSpec_$spec.name"
+
+        tasks.register(validateTaskName, ValidateTask) {
+            inputSpec.set("$rootDir/spec/spi/openapi_$spec.name"+".yml")
+            recommend.set(true)
+        }
+
+        tasks.register(generateTaskName, GenerateTask) {
+            generatorName.set("java")
+            inputSpec.set("$rootDir/spec/spi/openapi_$spec.name"+".yml")
+            outputDir.set("$rootDir/generated/$spec.name")
+            apiPackage.set("org.chargebee.spi.$spec.name"+".api")
+            invokerPackage.set("org.chargebee.spi.$spec.name"+".client")
+            modelPackage.set("org.chargebee.spi.$spec.name"+".model")
+            groupId.set(project.group)
+            id.set(spec.projectName)
+            version.set(project.version)
+            configFile.set("$rootDir/spec/spi/config.yml")
+        }
+
+        validateSpec.dependsOn(validateTaskName)
+        generateSpec.dependsOn(generateTaskName)
+
+        java.sourceSets["main"].java.srcDir("$rootDir/generated/$spec.name/src/main/java")
+    }
+}
+
+openApiTask();
+
+tasks.openApiGenerate.configure {
+    actions.clear()
+    dependsOn(generateSpec)
+}
+
+tasks.openApiValidate.configure {
+    actions.clear()
+    dependsOn(validateSpec)
+}
+
+publishing {
+    repositories {
+        maven {
+            url artifactory_publish_url
+            credentials {
+                username System.env.CODEARTIFACT_USER
+                password System.env.CODEARTIFACT_AUTH_TOKEN
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = project.group
+            artifactId = rootProject.name
+            version = project.version
+            from components.java
+        }
+    }
+}
+
+//As of now we have to keep following dependencies to generate build with generated sources
+dependencies {
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation "com.google.code.findbugs:jsr305:3.0.2"
+    implementation 'io.gsonfire:gson-fire:1.8.5'
+    implementation 'javax.ws.rs:jsr311-api:1.1.1'
+    implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    implementation 'org.apache.commons:commons-lang3:3.13.0'
+    implementation 'jakarta.annotation:jakarta.annotation-api:1.3.5'
+    testImplementation 'org.mockito:mockito-core:5.6.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}

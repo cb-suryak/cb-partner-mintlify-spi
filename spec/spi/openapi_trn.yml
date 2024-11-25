@@ -1,0 +1,542 @@
+openapi: 3.0.3
+info:
+  version: 0.0.1
+  title: Tax Registration Number Validation Service Adapter SPI
+  description: |
+    ## Overview
+    Tax registration number validate is a Service Provider Interface (SPI) that helps Chargebee communicate with API platforms providing the following services:
+    - Validate tax registration number
+    - Validate tax registration numbers in batch
+    
+    If you have an API that provides the services mentioned above and want Chargebee to be able to integrate with it, you can build an adapter service according to this specification.
+    
+    ## Terminology
+    Here's a list of terms we've used to describe this specification.
+    ### Merchant 
+      Chargebee’s customer who is carrying out the business of selling products. Also known as the Seller. The Seller has one or more Chargebee accounts.
+    ### Chargebee 
+     The SaaS which manages subscriptions and revenue operations on behalf of the Merchant. Chargebee makes API calls to the Tax Service Adapter for tax estimation and tax filing of transactions between the Merchant and the Customer.
+    ### Customer 
+    Merchant’s customer who purchases products from the Merchant. Their customer record(s) and other details are stored within Chargebee under the Merchant’s account.
+    ### Service Provider
+    The service which provides services for merchants.
+    ### Service Adapter 
+    The SPI for which the spec is defined in this document. This adapter serves the following purposes:
+    - Translates API requests (as defined in this document) from Chargebee to the request format specified by the Service Provider's API.
+    - Translates API responses from the Service Provider APIs to the format understood by Chargebee (as defined in this document).
+    ### Authorization
+    Chargebee uses HTTP header-based authorization for all the API endpoints associated with Service Adapter. We dynamically pass this authorization key in the HTTP header. The parameter that holds this key is found in the JSON object `api_configuration` required for configuring your onboarding on Chargebee's marketplace. In the `api_configuration` object, our [Taxes Service Adapter SPI](https://chargebee.atlassian.net/l/cp/ca5aZ1mA) checks the authorization key parameter from `credential_configuration.id` and creates the HTTP header-based input query parameter for authorization. The `credential_configuration` is an array of objects with an `id` attribute, and the value of `id` is the parameter containing the authorization key.
+      
+      Following are the JSON snippets for your reference.
+      
+       ```json
+          "api_configuration": {
+              "api_base_url": "https://xyz.abc.com/chargebee",
+              "credential_configuration": [ 
+                {
+                  "id":"authorization_key",
+                  "name": "Authorization Key", 
+                  "type": "text",
+                  "is_sensitive": true 
+                },
+                {
+                  "id": "client_secret",
+                  "name": "Client Secret",
+                  "type": "text",
+                  "is_sensitive": true
+                }
+              ]
+            }
+       ```
+servers:
+  - url: 'https://rest.taxes.provider.com/api/v1'
+    description: Production SPI server.
+  - url: 'https://sandbox.taxes.provider.com/api/v1'
+    description: Sandbox SPI server.
+tags:
+  - name: Authentication
+    description: "Endpoints to validate the credentials used for calling the Service Provider."
+  - name: Health
+    description: "Endpoints to monitor the health of the Service Provider and the Service Adapter."
+  - name: TrnValidate
+    description: "Endpoints to validate the tax registration number(s)."
+paths:
+  /health:
+    $ref: './paths/health.yml'
+  /credentials/validate:
+    $ref: './paths/credentials.yml'
+  /trn/validate:
+    post:
+      tags:
+        - TrnValidate
+      summary: Validate the tax registration number
+      description: "This endpoint takes the details of tax registration number and validate."
+      operationId: trnValidate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnValidateRequest'
+            examples:
+              TrnValidateRequest:
+                $ref: '#/components/examples/TrnValidateRequest'
+              TrnValidateRequestAdditional:
+                $ref: '#/components/examples/TrnValidateRequestAdditional'
+      responses:
+        '200':
+          description: "Request to validate the tax registration number submitted successfully."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnValidateResponse'
+              examples:
+                TrnValidateResponse:
+                  $ref: '#/components/examples/TrnValidateResponse'
+                TrnValidateResponseAdditional:
+                  $ref: '#/components/examples/TrnValidateResponseAdditional'
+        '400':
+          $ref: '#/components/responses/Error400TrnValidate'
+        '401':
+          $ref: './schemas/errors.yml#/components/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yml#/components/responses/Error403'
+        '429':
+          $ref: './schemas/errors.yml#/components/responses/Error429'
+        '500':
+          $ref: './schemas/errors.yml#/components/responses/Error500'
+        '503':
+          $ref: './schemas/errors.yml#/components/responses/Error503'
+  /trn/validate/{requestId}:
+    get:
+      tags:
+        - TrnValidate
+      summary: Get the response of tax registration number validate request
+      description: "This endpoint takes the request id and returns the response of the tax registration number"
+      operationId: fetchTrnValidate
+      parameters:
+        - $ref: '#/components/parameters/RequestIdPathParam'
+      responses:
+        '200':
+          description: "Response of tax registration number validation."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnValidateResponse'
+              examples:
+                TrnValidateResponse:
+                  $ref: '#/components/examples/TrnValidateResponse'
+        '401':
+          $ref: './schemas/errors.yml#/components/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yml#/components/responses/Error403'
+        '404':
+          $ref: './schemas/errors.yml#/components/responses/Error404'
+        '429':
+          $ref: './schemas/errors.yml#/components/responses/Error429'
+        '500':
+          $ref: './schemas/errors.yml#/components/responses/Error500'
+        '503':
+          $ref: './schemas/errors.yml#/components/responses/Error503'
+  /trn/validate/batch:
+    post:
+      tags:
+        - TrnValidate
+      summary: Validate the tax registration numbers in batch
+      description: "This endpoint takes the batch of tax registration numbers and validate."
+      operationId: trnValidateBatch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnValidateBatchRequest'
+            examples:
+              TrnValidateBatchRequest:
+                $ref: '#/components/examples/TrnValidateBatchRequest'
+              TrnValidateBatchRequestAdditional:
+                $ref: '#/components/examples/TrnValidateBatchRequestAdditional'
+      responses:
+        '200':
+          description: "Request to validate the batch of tax registration numbers being processed."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnValidateBatchResponse'
+              examples:
+                TrnValidateBatchResponse:
+                  $ref: '#/components/examples/TrnValidateBatchResponse'
+        '400':
+          $ref: '#/components/responses/Error400TrnValidate'
+        '401':
+          $ref: './schemas/errors.yml#/components/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yml#/components/responses/Error403'
+        '429':
+          $ref: './schemas/errors.yml#/components/responses/Error429'
+        '500':
+          $ref: './schemas/errors.yml#/components/responses/Error500'
+        '503':
+          $ref: './schemas/errors.yml#/components/responses/Error503'
+  /trn/validate/batch/{batchId}:
+    get:
+      tags:
+        - TrnValidate
+      summary: Get the response of batch of tax registration numbers
+      description: "This endpoint takes the batch id and returns the response of batch of tax registration numbers."
+      operationId: fetchTrnValidateBatch
+      parameters:
+        - $ref: './schemas/batch.yml#/components/parameters/BatchIdPathParam'
+        - $ref: './schemas/batch.yml#/components/parameters/OffsetQueryParam'
+        - $ref: './schemas/batch.yml#/components/parameters/LimitQueryParam'
+      responses:
+        '200':
+          description: "Response of the batch of tax registration numbers validation."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnValidateBatchResponse'
+              examples:
+                TrnValidateResponse:
+                  $ref: '#/components/examples/TrnValidateBatchResponse'
+        '401':
+          $ref: './schemas/errors.yml#/components/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yml#/components/responses/Error403'
+        '404':
+          $ref: './schemas/errors.yml#/components/responses/Error404'
+        '429':
+          $ref: './schemas/errors.yml#/components/responses/Error429'
+        '500':
+          $ref: './schemas/errors.yml#/components/responses/Error500'
+        '503':
+          $ref: './schemas/errors.yml#/components/responses/Error503'
+    delete:
+      tags:
+        - TrnValidate
+      summary: Delete the request of batch of tax registration numbers validation
+      description: "This endpoint takes the batch id and delete the running batch of tax registration numbers validation request at server side."
+      operationId: deleteTrnValidateBatch
+      parameters:
+        - $ref: './schemas/batch.yml#/components/parameters/BatchIdPathParam'
+      responses:
+        '200':
+          description: "Successfully deleted the request of batch of tax registration numbers validation."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnValidateBatchDeleteResponse'
+              examples:
+                BatchTrnValidateDeleteResponse:
+                  $ref: '#/components/examples/TrnValidateBatchDeleteResponse'
+        '401':
+          $ref: './schemas/errors.yml#/components/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yml#/components/responses/Error403'
+        '404':
+          $ref: './schemas/errors.yml#/components/responses/Error404'
+        '429':
+          $ref: './schemas/errors.yml#/components/responses/Error429'
+        '500':
+          $ref: './schemas/errors.yml#/components/responses/Error500'
+        '503':
+          $ref: './schemas/errors.yml#/components/responses/Error503'
+components:
+  schemas:
+    TrnValidateRequest:
+      type: object
+      additionalProperties: false
+      description: Contains the required properties for tax registration number validation request
+      required:
+        - trn
+        - country
+      properties:
+        trn:
+          type: string
+          description: Tax registration number
+        country:
+          $ref: '#/components/schemas/Country'
+        trnType:
+          $ref: '#/components/schemas/TrnType'
+        name:
+          type: string
+          description: Name of the tag registration number owner
+        validOn:
+          type: string
+          format: dd-mm-yyyy HH:mm:ss
+          description: Validate tax registration number on given date
+        requesterTrn:
+          type: string
+          description: Tax registration number of the entity or person who is requesting validation
+        taxOfficeCode:
+          type: string
+          description: Code of the tax office, some country need it to validate tax registration number
+        externalId:
+          type: string
+          description: Way to relate the request and response, if passed then the same value should be returned in response
+    TrnValidateResponse:
+      type: object
+      description: Contains the required properties for tax registration number validation response
+      required:
+        - trn
+        - country
+      properties:
+        requestId:
+          type: string
+          description: Unique id of the request, this is to refer later to fetch the response.
+        trn:
+          type: string
+          description: Tax registration number
+        country:
+          $ref: '#/components/schemas/Country'
+        name:
+          type: string
+          description: Name of the entity(may be an individual or a business company) who owns the tax registration number
+        address:
+          type: string
+          description: Address of the entity(may be an individual or a business company) who owns the tax registration number
+        trnStatus:
+          $ref: '#/components/schemas/TrnStatus'
+        isBusiness:
+          type: boolean
+          description: Indicates that tax registration number belong to a business entity or not.
+        isRegistered:
+          type: boolean
+          description: Indicates that tax registration number is registered or not
+        businessStatus:
+          $ref: '#/components/schemas/BusinessStatus'
+        validationDataSource:
+          type: string
+          description: Indicates name of the source of tax registration number validation (like database, vies)
+        externalId:
+          type: string
+          description: The externalId passed in the request
+        message:
+          type: string
+          description: Any message about tax registration number validation request
+    TrnValidateBatchRequest:
+      allOf:
+        - $ref: './schemas/batch.yml#/components/schemas/BatchRequest'
+        - type: object
+          description: Contains required properties for batch of tax registration numbers validation request
+          required:
+            - trns
+          properties:
+            trns:
+              type: array
+              description: List of tax registration numbers
+              items:
+                $ref: '#/components/schemas/TrnValidateRequest'
+    TrnValidateBatchResponse:
+      allOf:
+        - $ref: './schemas/batch.yml#/components/schemas/BatchResponse'
+        - type: object
+          description: Contains the required properties for batch of tax registration numbers validation response
+          required:
+            - trns
+          properties:
+            trns:
+              type: array
+              description: List of tax registration numbers
+              items:
+                $ref: '#/components/schemas/TrnValidateResponse'
+    TrnValidateBatchDeleteResponse:
+      allOf:
+        - $ref: './schemas/batch.yml#/components/schemas/BatchDeleteResponse'
+    Country:
+      type: object
+      description: Defines the required properties to hold information about Country
+      required:
+        - code
+      properties:
+        name:
+          type: string
+          description: Name of the country
+        code:
+          type: string
+          description: Code of the country
+          format: ISO
+    TrnStatus:
+      type: string
+      description: Indicates status of the tax registration number.
+      enum:
+        - VALID
+        - INVALID
+        - UNKNOWN
+    TrnType:
+      type: string
+      description: Indicates the type of the tax registration number.
+      enum:
+        - INDIVIDUAL
+        - BUSINESS
+        - GST
+        - VAT
+        - ENTITY
+        - UNKNOWN
+    BusinessStatus:
+      type: string
+      description: Indicate the status of the business of tax registration number.
+      enum:
+        - ACTIVE
+        - INACTIVE
+        - UNKNOWN
+    TrnValidateErrorResponse:
+      type: object
+      description: Defined the structure for validation error of tax registration number validation.
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              field:
+                type: string
+                description: The field of an entity that has the invalid value.
+                maxLength: 250
+                example: trn
+              code:
+                $ref: './schemas/errors.yml#/components/schemas/ErrorCode'
+              message:
+                type: string
+                description: A short message describing the reason for the error.
+                maxLength: 250
+                example: Tax registration number is missing.
+              helpUrl:
+                type: string
+                description: The link to the documentation for more information about the error and the corrective action.
+                example: 'https://apidocs.chargebee.com#Authentication'
+
+  parameters:
+    RequestIdPathParam:
+      in: path
+      name: requestId
+      required: true
+      schema:
+        type: string
+      description: "The unique request identifier."
+
+  responses:
+    Error400TrnValidate:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TrnValidateErrorResponse'
+  examples:
+    TrnValidateRequest:
+      description: Request with minimal details required to validate the tax registration number.
+      value:
+        trn: 40303265045
+        country:
+          code: FR
+    TrnValidateRequestAdditional:
+      description: Request with more details to validate the tax registration number.
+      value:
+        trn: 40303265045
+        country:
+          code: FR
+        trnType: VAT
+        externalId: cb-request-id
+        validOn: 10-09-2023 00:00:00
+        requesterTrn: FR12345678
+    TrnValidateResponse:
+      description: Response with minimal details of tax registration number validation.
+      value:
+        requestId: qwerty12345
+        trn: 40303265045
+        country:
+          name: France
+          code: FR
+        trnStatus: VALID
+    TrnValidateResponseAdditional:
+      description: Response with more details about tax registration number.
+      value:
+        requestId: qwerty12345
+        trn: 40303265045
+        country:
+          name: France
+          code: FR
+        trnStatus: VALID
+        name: Company Name
+        businessStatus: Active
+        isBusiness: true
+        address: 12, Company Road
+        externalId: cb-request-id
+    TrnValidateBatchRequest:
+      description: Request with minimal details required to validate the batch of tax registration numbers.
+      value:
+        batchName: x-trn-batch
+        trns:
+          -
+            trn: 40303265045
+            country:
+              code: FR
+          -
+            trn: 50303265045
+            country:
+              code: UK
+    TrnValidateBatchRequestAdditional:
+      description: Request with more details to validate the batch of tax registration numbers.
+      value:
+        batchName: x-trn-batch
+        externalId: cb-request-id
+        trns:
+          -
+            trn: 40303265045
+            country:
+              code: FR
+            trnType: VAT
+            externalId: cb-request-id
+            validOn: 10-09-2023 00:00:00
+            requesterTrn: FR12345678
+          -
+            trn: 50303265045
+            country:
+              code: FR
+            trnType: VAT
+            externalId: cb-request-id
+            validOn: 10-09-2023 00:00:00
+            requesterTrn: FR12345678
+    TrnValidateBatchResponse:
+      description: Response with minimal details of tax registration number request.
+      value:
+        batchId: qwerty12345
+        batchName: x-trn-batch
+        status: COMPLETED
+        limit: 100
+        offset: 0
+        completionPercentage: 100
+        trns:
+          -
+            trn: 40303265045
+            trnStatus: VALID
+            country:
+              name: France
+              code: FR
+          -
+            trn: 50303265045
+            trnStatus: VALID
+            country:
+              name: The united kingdom
+              code: UK
+    TrnValidateBatchDeleteResponse:
+      description: Response with required details of deleting batch of tax registration numbers validation.
+      value:
+        batchId: qwerty12345
+        message: successfully deleted
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    apiKey:
+      type: apiKey
+      description: Bearer token based authentication.
+      name: bearer
+      in: header
+security:
+  - bearerAuth: []
+  - apiKey: [] 

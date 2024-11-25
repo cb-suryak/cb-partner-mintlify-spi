@@ -1,0 +1,287 @@
+openapi: 3.0.3
+info:
+  version: 0.0.1
+  title: Tax Location Validation Service Adapter SPI
+  description: |
+    ## Overview
+    Location validate is a Service Provider Interface (SPI) that helps Chargebee communicate with API platforms providing the following services:
+    - Validate location of customer
+    
+    If you have an API that provides the services mentioned above and want Chargebee to be able to integrate with it, you can build an adapter service according to this specification.
+    
+    ## Terminology
+    Here's a list of terms we've used to describe this specification.
+    ### Merchant 
+      Chargebee’s customer who is carrying out the business of selling products. Also known as the Seller. The Seller has one or more Chargebee accounts.
+    ### Chargebee 
+     The SaaS which manages subscriptions and revenue operations on behalf of the Merchant. Chargebee makes API calls to the Tax Service Adapter for tax estimation and tax filing of transactions between the Merchant and the Customer.
+    ### Customer 
+    Merchant’s customer who purchases products from the Merchant. Their customer record(s) and other details are stored within Chargebee under the Merchant’s account.
+    ### Service Provider
+    The service which provides services for merchants.
+    ### Service Adapter 
+    The SPI for which the spec is defined in this document. This adapter serves the following purposes:
+    - Translates API requests (as defined in this document) from Chargebee to the request format specified by the Service Provider's API.
+    - Translates API responses from the Service Provider APIs to the format understood by Chargebee (as defined in this document).
+    ### Authorization
+    Chargebee uses HTTP header-based authorization for all the API endpoints associated with Service Adapter. We dynamically pass this authorization key in the HTTP header. The parameter that holds this key is found in the JSON object `api_configuration` required for configuring your onboarding on Chargebee's marketplace. In the `api_configuration` object, our [Taxes Service Adapter SPI](https://chargebee.atlassian.net/l/cp/ca5aZ1mA) checks the authorization key parameter from `credential_configuration.id` and creates the HTTP header-based input query parameter for authorization. The `credential_configuration` is an array of objects with an `id` attribute, and the value of `id` is the parameter containing the authorization key.
+    
+      Following are the JSON snippets for your reference.
+    
+       ```json
+          "api_configuration": {
+              "api_base_url": "https://xyz.abc.com/chargebee",
+              "credential_configuration": [ 
+                {
+                  "id":"authorization_key",
+                  "name": "Authorization Key", 
+                  "type": "text",
+                  "is_sensitive": true 
+                },
+                {
+                  "id": "client_secret",
+                  "name": "Client Secret",
+                  "type": "text",
+                  "is_sensitive": true
+                }
+              ]
+            }
+       ```
+servers:
+  - url: 'https://rest.taxes.provider.com/api/v1'
+    description: Production SPI server.
+  - url: 'https://sandbox.taxes.provider.com/api/v1'
+    description: Sandbox SPI server.
+tags:
+  - name: Authentication
+    description: "Endpoints to validate the credentials used for calling the Service Provider."
+  - name: Health
+    description: "Endpoints to monitor the health of the Service Provider and the Service Adapter."
+  - name: LocationValidate
+    description: "Endpoints to validate the location of the end customer."
+paths:
+  /health:
+    $ref: './paths/health.yml'
+  /credentials/validate:
+    $ref: './paths/credentials.yml'
+  /validate-location:
+    post:
+      tags:
+        - LocationValidate
+      summary: Validate the location of customer with given evidences
+      description: "This endpoint validates the location of a customer using the evidences like ip, bin, address, etc. to determine if a customer is taxable or not."
+      operationId: locationValidate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationValidationEvidence'
+            examples:
+              LocationValidateRequest:
+                $ref: '#/components/examples/LocationValidateRequest'
+              LocationValidateRequestAdditional:
+                $ref: '#/components/examples/LocationValidateRequestAdditional'
+      responses:
+        '200':
+          description: "Response to validate the location submitted successfully."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationValidateResponse'
+              examples:
+                LocationValidateResponse:
+                  $ref: '#/components/examples/LocationValidateResponse'
+                LocationValidateResponseAdditional:
+                  $ref: '#/components/examples/LocationValidateResponseAdditional'
+        '400':
+          $ref: '#/components/responses/Error400LocationValidate'
+        '401':
+          $ref: './schemas/errors.yml#/components/responses/Error401'
+        '403':
+          $ref: './schemas/errors.yml#/components/responses/Error403'
+        '429':
+          $ref: './schemas/errors.yml#/components/responses/Error429'
+        '500':
+          $ref: './schemas/errors.yml#/components/responses/Error500'
+        '503':
+          $ref: './schemas/errors.yml#/components/responses/Error503'
+components:
+  schemas:
+    LocationValidationEvidence:
+      type: object
+      description: Contains the required properties for location validation response
+      required:
+        - customerCode
+        - address
+      properties:
+        name:
+          type: string
+          description: Name of the customer.
+          maxLength: 50
+        customerCode:
+          type: string
+          description: Chargebee customer code.
+          maxLength: 50
+        taxRegistrationNumber:
+          type: string
+          description: Tax registration number of the customer.
+          maxLength: 50
+        ip:
+          type: string
+          description: IP address of the customer.
+          maxLength: 10
+        bin:
+          type: string
+          description: BIN of primary card.
+          maxLength: 6
+        phone:
+          type: string
+          description: Phone number of the customer.
+          maxLength: 15
+        address:
+          $ref: './openapi_tax.yml#/components/schemas/Address'
+        taxIdentifiers:
+          type: array
+          description: The tax code fields of the product used for tax calculation.
+          items:
+            $ref: './openapi_tax.yml#/components/schemas/FieldItem'
+    LocationValidateResponse:
+      type: object
+      description: Contains the required properties for location validation response
+      required:
+        - status
+        - evidenceOrigin
+      properties:
+        status:
+          $ref: '#/components/schemas/LocationValidationStatus'
+        sourceCountry:
+          type: string
+          description: SIngle country identified as location of Customer
+        evidenceOrigin:
+          $ref: '#/components/schemas/EvidenceOrigin'
+    EvidenceOrigin:
+      type: object
+      description: Source country identified from each evidence
+      properties:
+        taxRegistrationNumber:
+          type: string
+          description: Source country from Tax registration number of the customer.
+          maxLength: 10
+        ip:
+          type: string
+          description: Source country from IP address of the customer.
+          maxLength: 10
+        bin:
+          type: string
+          description: Source country from BIN of primary card.
+          maxLength: 10
+        phone:
+          type: string
+          description: Source country from Phone number of customer.
+          maxLength: 10
+        address:
+          type: string
+          description: Source country from address of customer.
+          maxLength: 10
+        taxIdentifiers:
+          type: string
+          description: Source country from Tax Identifiers of customer.
+          maxLength: 10
+    LocationValidateErrorResponse:
+      type: object
+      description: Defined the structure for validation error of location validation.
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              entity:
+                type: string
+                description: The target entity that has the invalid field or value.
+                maxLength: 250
+                example: Evidence
+              entityField:
+                type: string
+                description: The field of an entity that has the invalid value.
+                maxLength: 250
+                example: Evidence
+              code:
+                $ref: './schemas/errors.yml#/components/schemas/ErrorCode'
+                example: LOCATION_VALIDATION_FAILED
+              message:
+                type: string
+                description: A short message describing the reason for the error.
+                maxLength: 250
+                example: Could not resolve location from the given evidences. Address is in FR, IP is in US, phone is in India.
+              helpUrl:
+                type: string
+                description: The link to the documentation for more information about the error and the corrective action.
+                example: 'https://apidocs.chargebee.com#Location'
+    LocationValidationStatus:
+      type: string
+      description: The validation status of the location if a single country is identifiable.
+      enum:
+        - VALID
+        - INVALID
+  responses:
+    Error400LocationValidate:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LocationValidateErrorResponse'
+  examples:
+    LocationValidateRequest:
+      description: Request minimal details required to validate the location.
+      value:
+        customerCode: "40303265045"
+        address:
+          state: NY
+          country: US
+          postalCode: "11223"
+    LocationValidateRequestAdditional:
+      description: Request additional details to validate the location.
+      value:
+        customerCode: "40303265045"
+        address:
+          state: NY
+          country: US
+          postalCode: "11223"
+        ip: "42.13.134.12"
+        bin: "411111"
+        phone: "+919876543210"
+        taxRegistrationNumber: "FR123456789"
+    LocationValidateResponse:
+      description: Response with minimal details of location validation.
+      value:
+        status: VALID
+        sourceCountry: US
+    LocationValidateResponseAdditional:
+      description: Response with additional details of location validation.
+      value:
+        status: VALID
+        sourceCountry: US
+        evidenceOrigin:
+          ip: US
+          bin: US
+          phone: IN
+          taxRegistrationNumber: FR
+          address: US
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    apiKey:
+      type: apiKey
+      description: Bearer token based authentication.
+      name: bearer
+      in: header
+security:
+  - bearerAuth: []
+  - apiKey: []

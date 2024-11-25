@@ -1,0 +1,78 @@
+
+components:
+  schemas:
+    HealthCheckResponse:
+      type: object
+      required:
+        - status
+        - components
+        - time
+      properties:
+        version:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          description: "The description of the health status returned by the Service Adapter."
+          maxLength: 250
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        components:
+          type: array
+          description: "List of health status details for each component reported by the Service Adapter."
+          items:
+            $ref: '#/components/schemas/HealthCheckComponent'
+        time:
+          type: string
+          description: "The timestamp of the health status reported by the Service Adapter."
+          format: date-time
+    HealthCheckComponent:
+      type: object
+      description: "The health status details of a specific component reported by the Service Adapter."
+      required:
+        - id
+        - name
+        - type
+        - status
+      properties:
+        id:
+          type: string
+          description: "The id of the component."
+          maxLength: 50
+        name:
+          type: string
+          description: "The name of the component."
+          maxLength: 150
+        type:
+          type: string
+          description: |
+            The type of component affected when `status` is `WARN` or `DOWN`. The possible values are:
+            - `ADAPTER`: The reported status is for the Service Adapter.
+            - `API`: The reported status is for the Service Provider.
+            - `DATABASE`: The reported status is for a database dependency of the Service Provider.
+            - `SYSTEM`: The reported status is for any other known system component such as cache or gateway.
+            - `OTHER`: The reported status is either for a component that does not belong to the types described above or the source of the issue is unknown.
+          enum:
+            - OTHER
+            - SYSTEM
+            - API
+            - ADAPTER
+            - DATABASE
+        description:
+          type: string
+          description: "The detailed status of the component."
+          maxLength: 250
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        endpoints:
+          type: array
+          description: "When the `status` of the component is not `UP`, then the list of endpoints affected."
+          items:
+            type: string
+    HealthStatus:
+      type: string
+      description: "The status of a specific component reported by the Service Adapter."
+      enum:
+        - UP
+        - DOWN
+        - WARN
