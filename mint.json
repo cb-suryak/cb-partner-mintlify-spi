@@ -67,7 +67,7 @@
             },
             {
               "group": "Testing with Postman",
-              "pages": ["api-reference/v2/Postman Collection"]
+              "pages": ["api-reference/v2/PostmanCollection"]
             },
             {
               "group": "Address",
@@ -132,7 +132,7 @@
             },
             {
               "group": "Testing with Postman",
-              "pages": ["api-reference/v1/Postman Collection"]
+              "pages": ["api-reference/v1/PostmanCollection"]
             },
             {
               "group": "Address",
