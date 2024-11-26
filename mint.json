@@ -42,78 +42,13 @@
 
   "anchors": [],
   "versions": [
-    "v2",
     "v1"
   ],
   "navigation": [
     {
       "group": "API Reference",
       "pages": [
-        {
-          "group": "Partner SPI",
-          "version": "v2",
-          "pages": [
-            "api-reference/v2/Overview",
-            "api-reference/v2/Authorization"
-          ]
-        },
-        {
-          "group": "Tax SPI",
-          "version": "v2",
-          "pages": [
-            {
-              "group": "Overview",
-              "pages": ["api-reference/v2/docs/Overview"]
-            },
-            {
-              "group": "Testing with Postman",
-              "pages": ["api-reference/v2/PostmanCollection"]
-            },
-            {
-              "group": "Address",
-              "pages": [
-                "api-reference/v2/endpoint/address-validation",
-                "api-reference/v2/endpoint/check-taxability"
-              ]
-            },
-            {
-              "group": "TaxEstimate",
-              "pages": [
-                "api-reference/v2/taxestimate/estimate-tax-1"
-              ]
-            },
-            {
-              "group": "Invoice",
-              "pages": [
-                "api-reference/v2/endpoint/create-invoice",
-                "api-reference/v2/endpoint/retrieve-invoice",
-                "api-reference/v2/endpoint/commit-invoice",
-                "api-reference/v2/endpoint/void-invoice"
-              ]
-            },
-            {
-              "group": "CreditNote",
-              "pages": [
-                "api-reference/v2/endpoint/create-credit-note",
-                "api-reference/v2/endpoint/retrieve-credit-note",
-                "api-reference/v2/endpoint/commit-credit-note",
-                "api-reference/v2/endpoint/void-credit-note"
-              ]
-            },
-            {
-              "group": "Authentication",
-              "pages": [
-                "api-reference/v2/endpoint/validate-credentials"
-              ]
-            },
-            {
-              "group": "Health",
-              "pages": [
-                "api-reference/v2/endpoint/fetch-the-health-status-of-the-service-provider"
-              ]
-            }
-          ]
-        },
+        
         {
           "group": "Partner SPI",
           "version": "v1",
