@@ -129,6 +129,10 @@
               "pages": ["api-reference/v1/docs/Overview"]
             },
             {
+              "group": "Testing with Postman",
+              "pages": ["api-reference/v1/Postman Collection"]
+            },
+            {
               "group": "Address",
               "pages": [
                 "api-reference/v1/endpoint/address-validation",
