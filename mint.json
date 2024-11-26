@@ -54,9 +54,7 @@
           "version": "v2",
           "pages": [
             "api-reference/v2/Overview",
-            "api-reference/v2/Authorization",
-            "api-reference/v2/Postman Collection"
-
+            "api-reference/v2/Authorization"
           ]
         },
         {
@@ -66,6 +64,10 @@
             {
               "group": "Overview",
               "pages": ["api-reference/v2/docs/Overview"]
+            },
+            {
+              "group": "Testing with Postman",
+              "pages": ["api-reference/v2/Postman Collection"]
             },
             {
               "group": "Address",
