@@ -107,9 +107,7 @@
               "pages": [
                 "api-reference/v1/endpoint/fetch-the-health-status-of-the-service-provider"
               ]
-            },
-            
-            "api-reference/v1/TestingwithPostman"
+            }
             
           ]
         },
@@ -170,7 +168,8 @@
               ]
             }
           ]
-        }
+        },
+        "api-reference/v1/TestingwithPostman"
       ]
     },
     {
