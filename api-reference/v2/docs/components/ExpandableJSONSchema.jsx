@@ -3,17 +3,6 @@ import React, { useState } from 'react';
 const ExpandableJSONSchema = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const jsonSchema = `{
-   "$schema":"http://json-schema.org/draft-06/schema#",
-   "$ref":"#/definitions/ProviderCapabilitySchema",
-   "definitions":{
-      "ProviderCapabilitySchema":{
-         "type":"object",
-         ...
-      }
-   }
-}`;
-
   const fullJsonSchema = `{
    "$schema":"http://json-schema.org/draft-06/schema#",
    "$ref":"#/definitions/ProviderCapabilitySchema",
@@ -23,20 +12,13 @@ const ExpandableJSONSchema = () => {
          "description":"The main schema that defines the structure of both Provider's production and sandbox capabilities.",
          "additionalProperties":false,
          "properties":{
-            "prod":{
-               "$ref":"#/definitions/CapabilityBody"
-            },
-            "sandbox":{
-               "$ref":"#/definitions/CapabilityBody"
-            }
+            "prod": { "$ref":"#/definitions/CapabilityBody" },
+            "sandbox": { "$ref":"#/definitions/CapabilityBody" }
          },
-         "required":[
-            "prod",
-            "sandbox"
-         ],
+         "required":["prod", "sandbox"],
          "title":"ProviderCapabilitySchema"
-      },
-      // ... rest of the full schema
+      }
+      // Remaining definitions truncated for brevity
    }
 }`;
 
@@ -52,15 +34,13 @@ const ExpandableJSONSchema = () => {
         </button>
       </div>
 
-      <pre className="bg-white border rounded p-3 overflow-x-auto text-sm">
-        <code>
-          {isExpanded ? fullJsonSchema : jsonSchema + '...'}
-        </code>
-      </pre>
-
-      {!isExpanded && (
-        <div className="mt-2 text-gray-500 italic">
-          Click "Expand Full Schema" to see the complete JSON schema
+      {isExpanded ? (
+        <pre className="bg-white border rounded p-3 overflow-x-auto text-sm max-h-[500px] overflow-y-scroll">
+          <code>{fullJsonSchema}</code>
+        </pre>
+      ) : (
+        <div className="bg-white border rounded p-3 text-sm text-gray-600">
+          JSON Schema preview. Click "Expand Full Schema" to view complete details.
         </div>
       )}
     </div>
