@@ -66,10 +66,6 @@
               "pages": ["api-reference/v1/docs/Overview"]
             },
             {
-              "group": "Testing with Postman",
-              "pages": ["api-reference/v1/PostmanCollection"]
-            },
-            {
               "group": "Address",
               "pages": [
                 "api-reference/v1/endpoint/address-validation",
@@ -111,7 +107,10 @@
               "pages": [
                 "api-reference/v1/endpoint/fetch-the-health-status-of-the-service-provider"
               ]
-            }
+            },
+            
+            "api-reference/v1/PostmanCollection"
+            
           ]
         },
         {
