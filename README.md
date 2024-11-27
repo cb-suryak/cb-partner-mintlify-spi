@@ -68,43 +68,10 @@ These SPIs allow partners to build custom adapters by implementing the SPI-defin
   ```
 - The generated SPI jar will be located in the `./build/libs/` directory.
 
+#### 5. Update postman collection
+- Refer to the [Updating & Using Postman Collection (TO BE ADDED)](#updating--using-postman-collection-to-be-added) section to follow the steps to update the Postman collection.
+
 <!--
-## Working on Service Adapter SPI for first time
-
-Follow the below steps for generating jar
-
-Clone repository in local
-```shell
-  git clone git@github.com:chargebee/cb-provider-spi.git
-```
-
-Validate open api specs using below command
-```shell
-sh gradlew validateSpec  --warning-mode all --stacktrace
-```
-
-Validate specific open api spec using below command
-```shell
- sh gradlew validateSpec_tax  --warning-mode all --stacktrace
-```
-
-Generate models of all open api specs using below command
-```shell
-sh gradlew generateSpec  --warning-mode all --stacktrace
-```
-
-Generate models specific open api spec using below command
-```shell
-sh gradlew generateSpec_tax  --warning-mode all --stacktrace
-```
-
-When models are generated successfully, generate jar using below command
-```shell
-sh gradlew clean build
-```
-If no build issue, and if jar is successfully created, go to **./build/libs/cb-provider-spi.jar**
-
-
 ## Getting Started
 
 Please follow the installation instruction of generated readme to generate the jar of this project. Currently, this jar is used as a dependency in chargebee-app too to use APIs as well as models.
@@ -164,12 +131,10 @@ public class Example {
 -->
 
 ## JSON Schema validation
-Tax provider capabilities for new tax providers will be validated against a constantly updating JSON Schema, to validate the correctness and completeness of configurations. JSON Schema can be referenced below.
+The capabilities of the built adapters will be validated against a constantly updating JSON Schema, to validate the correctness and completeness of configurations. JSON Schema can be referenced below.
 - [TaxProviderCapabilities JSONSchema](spec/capabilities/tax-provider.schema.json)
 
-## Steps to follow release
-
-
+## Steps to follow release(Chargebee owned)
 1. Assume release is 0.0.9. (find release from git page release section)
 2. create a new branch called release/<release> so this would be release/0.0.9
 3. create new branch for ticket feat/<ticket-number>
@@ -178,3 +143,12 @@ Tax provider capabilities for new tax providers will be validated against a cons
 6. After PR is approved and merged
 7. Raise PR from release/0.0.9 to dev. Once PR is merged it will auto release the 0.0.9 version of SPI for dev code base
 8. After that raise PR from release/0.0.9 to main. Once PR is merged it will auto release the 0.0.9 version of SPI for prod codebase
+
+## Updating & Using Postman Collection (TO BE ADDED)
+
+- Postman test suites comprising test cases for each SPI endpoint is available in the `postman/<capability_name>` directory.  
+  **Example:** `postman/tax`.
+
+- Any critical changes made to the OpenAPI specification **MUST** be accompanied by adding or updating the corresponding test cases in the Postman collection.
+
+- To test the SPI endpoints, import the Postman collection into your Postman workspace or Chargebee workspace.([Attach link here - TBA])
