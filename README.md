@@ -26,70 +26,49 @@ These SPIs allow partners to build custom adapters by implementing the SPI-defin
 
 #### 1.3 Add a New SPI in a New OpenAPI Specification
 - Create a new OpenAPI specification file named `openapi_<capability_name>.yml` inside the `spec/spi/` directory.  
-  **Example:** `spec/spi/openapi_tax_reg_number_validation.yml`.
+  **Example:** `spec/spi/openapi_tax.yml`.
 - Update the [spec.config](spec.config) file to include the new file configuration.
 
 
 #### 2. Validate the OpenAPI Specification
 - Use the following command to validate a **specific** OpenAPI specification
   ```bash
-  sh gradlew validateSpec_<capability_name> --warning-mode all --stacktrace
+  sh gradlew validateSpec_tax --warning-mode all --stacktrace
   ```
 
 - Use the following command to validate all the OpenAPI specs:
   ```bash
-  sh gradlew validateSpec  --warning-mode all --stacktrace
+  sh gradlew validateSpec  --warning-mode all --stacktrace  
   ```
 
-#### 3. Generate the Bundled OpenAPI spec & Models
+#### 3. Generate the Bundled OpenAPI spec & related files
 - Each OpenAPI specification file in the spec/spi directory may reference other specification files (e.g., credentials.yml).
   To generate a single bundled OpenAPI specification, use the following commands:
   - for a specific openAPI spec:
   ```bash
-  sh gradlew generateSpec_<capability_name> --warning-mode all --stacktrace
-  ```  
-  - **Ex:**  `sh gradlew generateSpec_tax --warning-mode all --stacktrace`
+  sh gradlew generateSpec_tax --warning-mode all --stacktrace
+  ```
 
   - for all openAPI specs:
   ```bash
   sh gradlew generateSpec  --warning-mode all --stacktrace
-```
-  
-#### 4. Use Java Models, clients and docs
-- For Java, Model, clients and docs files will be generated under `generated/<capability_name>` folder. Ex: `generated/tax`
+  ```
 
-## General Commands
-- Validate the open api spec `sh gradlew validateSpec --warning-mode all --stacktrace`
-- Generate models, api client, docs etc `sh gradlew generateSpec --warning-mode all --stacktrace`
-  - New folder `generated` will be created which will have all models, clients, docs etc
-- Build `sh gradlew build` spi jar will be generated to ./build/libs/cb-provider-spi.jar
+- The generated output will include:
+  - Java Models
+  - Clients
+  - Markdown files
 
-## Commands for Chargebee internal usage:
+- These files will be located in the `generated/<capability_name>` folder. **Example:** `generated/tax`
 
-
+#### 4. Generate SPI jar
+- To build the SPI jar for Java, use the following command:
+  ```bash
+  sh gradlew build
+  ```
+- The generated SPI jar will be located in the `./build/libs/` directory.
 
 <!--
-## Chargebee's Open API Spec
-Service Provider Interfaces for Chargebee's capabilities
-- [Open api tax_spec](spec/spi/openapi_tax.yml)
-- [Open api trn_validation_spec](spec/spi/openapi_trn.yml)
-- To view open api spec visit https://editor.swagger.io/ and place generated yaml content
-
-## Add new open api spec
-- Add **openapi.yml** file under `spec/spi/` folder, like spec/spi/**abc**
-- Add config details in [spec.config](spec.config) file
-- Command to validate open api spec `sh gradlew validateSpec_abc --warning-mode all --stacktrace`
-- Command to generate open api spec `sh gradlew generateSpec_abc --warning-mode all --stacktrace`
-- Java models, clients and doc will be generated under `generated/abc` folder
-- 
-
-## Commands
-- Validate the open api spec `sh gradlew validateSpec --warning-mode all --stacktrace`
-- Generate models, api client, docs etc `sh gradlew generateSpec --warning-mode all --stacktrace`
-    - New folder `generated` will be created which will have all models, clients, docs etc
-- Build `sh gradlew build` spi jar will be generated to ./build/libs/cb-provider-spi.jar
-- Publish jar to local maven repo `sh gradlew build publishToMavenLocal`
-
 ## Working on Service Adapter SPI for first time
 
 Follow the below steps for generating jar
