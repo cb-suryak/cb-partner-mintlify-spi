@@ -55,7 +55,7 @@ def openApiTask() {
         tasks.register(generateTaskName, GenerateTask) {
             generatorName.set("java")
             inputSpec.set("$rootDir/spec/spi/openapi_$spec.name"+".yml")
-            outputDir.set("$rootDir/generated/$spec.name")
+            outputDir.set("$rootDir/spec/spi/generated/$spec.name")
             apiPackage.set("org.chargebee.spi.$spec.name"+".api")
             invokerPackage.set("org.chargebee.spi.$spec.name"+".client")
             modelPackage.set("org.chargebee.spi.$spec.name"+".model")
@@ -63,12 +63,21 @@ def openApiTask() {
             id.set(spec.projectName)
             version.set(project.version)
             configFile.set("$rootDir/spec/spi/config.yml")
+            doLast {
+                def generatedDir = new File("$rootDir/spec/spi/generated/${spec.name}/api")
+                generatedDir.eachFile { file ->
+                    if (file.name.endsWith(".yaml")) {
+                        def newFileName = "${spec.name}_${file.name}"
+                        file.renameTo(new File(file.parent, newFileName))
+                    }
+                }
+            }
         }
 
         validateSpec.dependsOn(validateTaskName)
         generateSpec.dependsOn(generateTaskName)
 
-        java.sourceSets["main"].java.srcDir("$rootDir/generated/$spec.name/src/main/java")
+        java.sourceSets["main"].java.srcDir("$rootDir/spec/spi/generated/$spec.name/src/main/java")
     }
 }
 
