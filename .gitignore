@@ -18,8 +18,4 @@ hs_err_pid*
 /.gradle
 /build
 /.idea/
-# Ignore the entire 'generated' folder under 'spec/spi/'
-spec/spi/generated/
-
-# Unignore specific .yml files in 'api' subdirectories
-!spec/spi/generated/**/api/*.yaml
+/generated/

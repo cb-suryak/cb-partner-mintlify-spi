@@ -134,14 +134,6 @@ public class Example {
 The capabilities of the built adapters will be validated against a constantly updating JSON Schema, to validate the correctness and completeness of configurations. JSON Schema can be referenced below.
 - [TaxProviderCapabilities JSONSchema](spec/capabilities/tax-provider.schema.json)
 
-Run the below script to perform json schema validation:
-```shell
-  sh json_schema_validation.sh <path to json file>
-```
-Example:
-```shell
-  sh json_schema_validation.sh spec/capabilities/tax-provider.file.json
-```
 
 ## Steps to follow release(Chargebee owned)
 1. Assume release is 0.0.9. (find release from git page release section)
