@@ -1,0 +1,186 @@
+{
+  "prod":{
+    "api_configuration":{
+      "api_base_url":"https://api.anrok.com/integrations/chargebee/api/v1",
+      "credential_configuration":[
+        {
+          "id":"api_key",
+          "is_required":true,
+          "is_sensitive":true,
+          "name":"Anrok API Key",
+          "type":"text"
+        }
+      ]
+    },
+    "capabilities":{
+      "can_have_customer_identifiers":true,
+      "can_have_product_identifiers":false,
+      "can_support_currency_inclusive_of_taxes":true,
+      "can_sync_credit_notes":true,
+      "can_sync_invoices":true,
+      "can_validate_shipping_address":false,
+      "credit_note_sync_capabilities":{
+        "applicable_sync_types":[
+          "SYNC_ALL"
+        ],
+        "can_commit":false,
+        "can_delete":false,
+        "can_void":true,
+        "is_sync_supported":true,
+        "supported_countries":[
+          "US",
+          "EU",
+          "GB", "ALL"
+        ]
+      },
+      "invoice_sync_capabilities":{
+        "applicable_sync_types":[
+          "SYNC_ALL"
+        ],
+        "can_commit":false,
+        "can_delete":false,
+        "can_void":true,
+        "is_sync_supported":true,
+        "supported_countries":[
+          "US",
+          "EU",
+          "GB", "ALL"
+        ]
+      },
+      "is_consistent_pricing_supported":false,
+      "supported_countries":[
+        "US",
+        "EU",
+        "GB", "ALL"
+      ],
+      "supported_currencies":[
+        "US_DOLLARS"
+      ],
+      "tax_calculation_capabilities":{
+        "accept_invalid_tax_reg_numbers":false,
+        "supportedNumberOfLineItems":1200
+      }
+    },
+    "customer_identifiers":[
+      {
+        "external_id": "additionalTaxRegistrationNumber",
+        "display_name": "Additional Tax Registration Number",
+        "is_mandatory": false,
+        "field_type": "text"
+      }
+    ],
+    "identity_configuration":{
+      "consent_policy_url":" https://www.anrok.com/privacy-terms",
+      "display_name":"Anrok",
+      "documentation_url":"https://www.chargebee.com/docs/2.0/anrok.html",
+      "id":"anrok",
+      "logo_url":"https://app.anrok.com/images/anrok-chargebee-app-icon.png",
+      "primary_description":[
+        "Anrok unifies sales tax monitoring, calculation and remittance across your financial stack."
+      ],
+      "privacy_policy_url":" https://www.anrok.com/privacy-terms",
+      "secondary_description":[
+        "Future-proof your Internet revenue."
+      ],
+      "signup_url":"https://anrok.com/contact/request-demo",
+      "support_email":"support@anrok.com",
+      "terms_of_service_url":"https://www.anrok.com/privacy-terms"
+    },
+    "product_identifiers":[
+    ],
+    "supported_number_of_line_items":1000,
+    "version":"1.0.0"
+  },
+  "sandbox":{
+    "api_configuration":{
+      "api_base_url":"https://api.anrok.com/integrations/chargebee/api/v1",
+      "credential_configuration":[
+        {
+          "id":"api_key",
+          "is_required":true,
+          "is_sensitive":true,
+          "name":"Anrok API Key",
+          "type":"text"
+        }
+      ]
+    },
+    "capabilities":{
+      "can_have_customer_identifiers":true,
+      "can_have_product_identifiers":false,
+      "can_support_currency_inclusive_of_taxes":true,
+      "can_sync_credit_notes":true,
+      "can_sync_invoices":true,
+      "can_validate_shipping_address":false,
+      "credit_note_sync_capabilities":{
+        "applicable_sync_types":[
+          "SYNC_ALL"
+        ],
+        "can_commit":false,
+        "can_delete":false,
+        "can_void":true,
+        "is_sync_supported":true,
+        "supported_countries":[
+          "US",
+          "EU",
+          "GB", "ALL"
+        ]
+      },
+      "invoice_sync_capabilities":{
+        "applicable_sync_types":[
+          "SYNC_ALL"
+        ],
+        "can_commit":false,
+        "can_delete":false,
+        "can_void":true,
+        "is_sync_supported":true,
+        "supported_countries":[
+          "US",
+          "EU",
+          "GB", "ALL"
+        ]
+      },
+      "is_consistent_pricing_supported":false,
+      "supported_countries":[
+        "US",
+        "EU",
+        "GB", "ALL"
+      ],
+      "supported_currencies":[
+        "US_DOLLARS"
+      ],
+      "tax_calculation_capabilities":{
+        "accept_invalid_tax_reg_numbers":false,
+        "supportedNumberOfLineItems":1200
+      }
+    },
+    "customer_identifiers":[
+      {
+        "external_id": "additionalTaxRegistrationNumber",
+        "display_name": "Additional Tax Registration Number",
+        "is_mandatory": false,
+        "field_type": "text"
+      }
+    ],
+    "identity_configuration":{
+      "consent_policy_url":" https://www.anrok.com/privacy-terms",
+      "display_name":"Anrok",
+      "documentation_url":"https://www.chargebee.com/docs/2.0/anrok.html",
+      "id":"anrok",
+      "logo_url":"https://app.anrok.com/images/anrok-chargebee-app-icon.png",
+      "primary_description":[
+        "Anrok unifies sales tax monitoring, calculation and remittance across your financial stack."
+      ],
+      "privacy_policy_url":" https://www.anrok.com/privacy-terms",
+      "secondary_description":[
+        "Future-proof your Internet revenue."
+      ],
+      "signup_url":"https://anrok.com/contact/request-demo",
+      "support_email":"support@anrok.com",
+      "terms_of_service_url":"https://www.anrok.com/privacy-terms"
+    },
+    "product_identifiers":[
+    ],
+    "supported_number_of_line_items":1000,
+    "version":"1.0.0"
+  }
+}
