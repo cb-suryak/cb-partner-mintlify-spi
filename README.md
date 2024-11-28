@@ -136,11 +136,11 @@ The capabilities of the built adapters will be validated against a constantly up
 
 Run the below script to perform json schema validation:
 ```shell
-  ./json_schema_validation.sh <path to json file>
+  sh json_schema_validation.sh <path to json file>
 ```
 Example:
 ```shell
-  ./json_schema_validation.sh spec/capabilities/tax-provider.file.json
+  sh json_schema_validation.sh spec/capabilities/tax-provider.file.json
 ```
 
 ## Steps to follow release(Chargebee owned)

@@ -25,3 +25,4 @@ spec/spi/generated/
 # Unignore specific .yml files in 'api' subdirectories
 !spec/spi/generated/**/api/*.yaml
 
+*.DS_Store
