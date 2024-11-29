@@ -71,6 +71,52 @@ These SPIs allow partners to build custom adapters by implementing the SPI-defin
 #### 5. Update postman collection
 - Refer to the [Updating & Using Postman Collection (TO BE ADDED)](#updating--using-postman-collection-to-be-added) section to follow the steps to update the Postman collection.
 
+
+## Steps to update mintlify’s files for creating a SPI endpoint or new openAPISpec
+
+#### 1. Generate mdx files for SPI endpoint or new openAPISpec
+- Use the following command to create mdx files for the endpoints from the openAPI spec file you have added or made changes to
+  ```bash
+  npx @mintlify/scraping@latest openapi-file <path-to-openapi-file> -o <output-folder>
+  ```
+  **Example:**
+  ```bash
+  npx @mintlify/scraping@latest openapi-file ./spec/spi/openapi_tax.yml -o api-reference
+  ```
+
+#### 2. Add reference to generated endpoint mdx files in navigation section of mint.json
+
+#### 2.1 Locate Generated MDX Files
+After running the mdx files generation command, check the <output-folder> directory for new MDX files.
+
+#### 2.2 Update mint.json Navigation
+```json
+{
+  "navigation": [
+    {
+      "group": "API Reference",
+      "pages": [
+        // Existing pages
+        "output-folder/existing-endpoint",
+        
+        // Add your new endpoint MDX file here
+        "output-folder/new-endpoint-file"
+      ]
+    }
+  ]
+}
+```
+#### Note
+1. Don't use full file paths. Use relative paths.
+2. Don't include the .mdx extension.
+
+#### 3. Preview the changes locally
+- Run the following command to preview the changes locally
+  ```bash
+  mintlify dev
+
+  ```
+
 <!--
 ## Getting Started
 
