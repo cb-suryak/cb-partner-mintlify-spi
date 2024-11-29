@@ -77,7 +77,7 @@ These SPIs allow partners to build custom adapters by implementing the SPI-defin
 #### 1. Generate mdx files for SPI endpoint or new openAPISpec
 - Use the following command to create mdx files for the endpoints from the openAPI spec file you have added or made changes to
   ```bash
-  npx @mintlify/scraping@latest openapi-file <path-to-openapi-file> -o <output-folder>
+  npx @mintlify/scraping@latest openapi-file <path-to-openapi-file> -o api-reference
   ```
   **Example:**
   ```bash
@@ -87,7 +87,7 @@ These SPIs allow partners to build custom adapters by implementing the SPI-defin
 #### 2. Add reference to generated endpoint mdx files in navigation section of mint.json
 
 #### 2.1 Locate Generated MDX Files
-After running the mdx files generation command, check the <output-folder> directory for new MDX files.
+After running the mdx files generation command, check the api-reference directory for new MDX files.
 
 #### 2.2 Update mint.json Navigation
 ```json
@@ -97,10 +97,10 @@ After running the mdx files generation command, check the <output-folder> direct
       "group": "API Reference",
       "pages": [
         // Existing pages
-        "output-folder/existing-endpoint",
+        "api-reference/existing-endpoint",
         
         // Add your new endpoint MDX file here
-        "output-folder/new-endpoint-file"
+        "api-reference/new-endpoint-file"
       ]
     }
   ]
@@ -114,7 +114,6 @@ After running the mdx files generation command, check the <output-folder> direct
 - Run the following command to preview the changes locally
   ```bash
   mintlify dev
-
   ```
 
 <!--
