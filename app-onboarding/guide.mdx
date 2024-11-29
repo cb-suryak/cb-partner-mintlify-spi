@@ -3,69 +3,135 @@ title: Integrating your App with Chargebee
 description: 'Guide to integrate your app with Chargebee and list it on Chargebee’s marketplace.'
 ---
 
-## Developing an App to integration with Chargebee
+## Developing an App to Integrate with Chargebee
 
-Chargebee Partners can leverage the Service Provider Interfaces(SPIs)(Attach link) to develop adapters that seamlessly integrate with Chargebee, extending its 
-core capabilities to meet diverse business needs.
+Chargebee partners can leverage the Service Provider Interfaces (SPIs) (Attach link) to develop apps that seamlessly 
+integrate with Chargebee. These apps extend Chargebee's core capabilities, enabling diverse business use cases.
 
-A partner who wants to integrate their app with Chargebee can follow these steps:
+To develop your app with Chargebee, follow these steps:
 
-- Understand the openAPI spec and integration details to build a suitable adapter for the integration to work.
-- Implement the SPI-defined endpoints.
-- Test the integration with the postman collection provider.(Attach link)
-- Go through the General(Attach Link) and Technical Requisites(Attach Link) to ensure your app meets the requirements.
+1. **Understand the OpenAPI Specification:**
+Familiarize yourself with the OpenAPI spec and integration details to design and build a suitable app for seamless functionality. 
+2. **Implement SPI-Defined Endpoints:**
+Develop the endpoints as defined in the Service Provider Interface documentation to ensure compatibility with Chargebee's ecosystem.
+3. **Adhere to Requirements:**
+Review the [General Requirements](#general-Requisites) and [Technical Requirements](#technical-requisites) to ensure your app complies with all guidelines.
+4. **Test the Integration:**
+Use the provided Postman collection (Attach link) to validate and test the integration.
 
+## Onboarding Process for Apps via SPIs
 
+### General Requisites
+To list your app on **Chargebee’s Marketplace** as a solution provider, ensure the following steps are followed:
 
-## General Requisites:
-As a solution provider follow these steps to list your App on Chargebee’s marketplace.
+1. **Compliance with PII Standards**
+  - Chargebee is **Personal Identifiable Information (PII) compliant** and mandates its integrated apps to adhere to the same standards.
+  - Merchant-specific confidential data shared with partner app servers must be handled securely and in compliance with PII requirements.
+  - Your app must provide **Service Level Agreements (SLAs)**, particularly addressing **data deletion** requirements, as part of the agreements with both the merchant and Chargebee.
 
-- Chargebee is Personal Identifiable Information (PII) compliant and requires its integrated Apps to be PII compliant as well. Chargebee shares merchant-specific confidential data to the partner app servers to achieve the merchant's usecse. The partner app should provide the SLAs as a part of the agreements with the Merchant and Chargebee specifically for data deletions.
-- Chargebee servers are built to serve its requirements; hence the apps/adapters should accept traffic only from allow-listed servers.
-- Chargebee and the partner should sign a legal contract dictating terms from both ends.
-- As a Capability Solution provider Example: Tax provider, you are expected to 
-  - Independently execute an agreement with the merchants before they start using your app. 
-  - Elaborately describe the information you will be fetching from Chargebee about your customers or sales transactions. 
-  - Share the following with the Chargebee team before going live: (Double check this)
-    - Escalation matrix that needs to be followed. 
-    - Support email that merchants can reach out to. 
-    - Partner support email for technical support. 
-    - Links to your merchant user guides. 
-    - Specific documents for configurations such as managing API keys and importing plans. 
-- Chargebee and the merchants should be informed about the system outages and scheduled maintenance on the external product status page. The integrated app is expected to maintain a status page that includes both actual service provider and adapter's health status. 
-- Terms of service, consent and privacy policy pages are to be published on the website.
+2. **Traffic Management**
+  - Partner apps must accept traffic **only from allow-listed servers**, as Chargebee’s infrastructure is designed to operate securely within its ecosystem.
 
-## Technical Requisites
-- **Availability:**- The adapter’s availability must be at the highest level(99.9%). If the solution provider is planning on a scheduled downtime due to maintenance, Chargebee must be provided with advance notification to reduce downtime for its customers.
-Note: Uninformed downtimes may result in the app being delisted from the marketplace.
+3. **Legal Agreements**
+  - A formal legal contract must be signed between Chargebee and the partner app to establish clear terms and conditions.
 
-- **Rate limiting:**- Enterprise customers in Chargebee can make up to 500 requests per minute. Tax calculation is a critical part of our operations, and we may need our integrated apps to adhere to at least 300 requests per minute for each customer. These will be tested during integration, and we recommend you ensure the adapters adhere to them.
+4. **Responsibilities as a Capability Solution Provider (e.g., Tax Provider)**
+  - Independently execute agreements with merchants before they begin using your app.
+  - Clearly define the scope of data fetched from Chargebee, including details about customer and sales transaction information.
 
-- **Latency:**- We expect the adapters to serve the requests with a maximum latency of 250ms. Anything greater than this latency is unacceptable.
+5. **Pre-Go-Live Deliverables**  
+   Share the following details with the Chargebee team before your app goes live:
+  - **Escalation Matrix**: Define the escalation process for resolving critical issues.
+  - **Merchant Support Email**: Provide a dedicated email for merchant inquiries.
+  - **Partner Support Email**: Share an email address for technical support.
+  - **Merchant User Guides**: Links to detailed guides for merchants to use your app.
+  - **Configuration Documentation**: Documents explaining configurations such as managing API keys and importing plans.
 
-- **Quality:**- Chargebee believes in delivering top-quality tools to its customers. As a listed app in its marketplace, the tax apps should offer our merchants a consistent and positive experience.
+6. **System Status and Maintenance Updates**
+  - Maintain a public **external product status page** to communicate system outages and scheduled maintenance.
+  - This status page must reflect the health status of both the actual service provider and the app.
 
-- **Scalability:** Currently, the integrated app should support the scalability as that of Chargebee. Example: Chargebee supports up to 1200 line items in an invoice, and this number will go up in the coming days. Tax providers should support at least these numbers and should be willing to scale this number as per requirement.
+7. **Terms, Consent, and Privacy Policies**
+  - Publish the following pages on your website:
+    - Terms of Service
+    - Consent Policy
+    - Privacy Policy
 
-- **Security & certifications:** All communication should happen over Transport Layer Security (TLS) to ensure the channel is secure. As Chargebee is PII compliant and will share customers’ data with you, you need to have PII compliance certification to move forward with the agreement.
+By following these guidelines, you can ensure a seamless onboarding process and compliance with Chargebee’s standards for integrating apps into its ecosystem.
 
-- **Concurrency Handling:** the ability to handle concurrency on the adapter service.
+### Technical Requisites
 
+1. **Availability**
+  - The app’s availability must meet the highest standards, with a target of **99.9% uptime**.
+  - If scheduled downtime is required for maintenance, **advance notification** must be provided to Chargebee to minimize the impact on its customers.
+  - **Note**: Uninformed downtimes may lead to the app being **delisted** from the marketplace.
+
+2. **Rate Limiting**
+  - Chargebee’s enterprise customers can make up to **500 requests per minute**.
+  - Tax calculation, being critical to operations, requires integrated apps to handle a minimum of **300 requests per minute per customer**.
+  - This capacity will be tested during integration, and it is recommended to ensure the app adheres to this limit.
+
+3. **Latency**
+  - apps are expected to respond with a **maximum latency of 250ms** per request.
+  - Latencies exceeding this threshold are considered unacceptable.
+
+4. **Quality**
+  - Chargebee aims to deliver high-quality tools to its customers.
+  - As a listed app in the marketplace, your app must provide a **consistent and positive experience** to merchants.
+
+5. **Scalability**
+  - The integrated app must support the same scalability standards as Chargebee.
+  - For example, Chargebee supports up to **1200 line items(TBU) per invoice**, and this number is expected to increase.
+  - Tax providers should be prepared to scale accordingly and handle at least these volumes, with the capability to adapt to future requirements.
+
+6. **Security & Certifications**
+  - All communication must occur over **Transport Layer Security (TLS)** to ensure a secure channel.
+  - As Chargebee shares customers’ data, **PII compliance certification** is mandatory to proceed with the agreement.
+
+7. **Concurrency Handling**
+  - The app must have the capability to effectively handle **concurrent requests** to ensure smooth operation during peak loads.
 
 ## Go Live Steps
-- Complete the development & testing of the adapter service based on the requirements mentioned here([Developing an App to integration with Chargebee](#developing-an-app-to-integration-with-chargebee)).
-- Fill the configurations and capabilities details of your adapter. Here is the JSON Schema for the same (Attach link)
-- Reach out to the Chargebee team at taxation@chargebee.com with the configurations and capabilities details and test suite results.
-- Once you are ready, our internal review team will test your integration. This will be a combination of manual and automated testing. We will also stress-test your integration to see if you can handle our peak loads.
-- Once the review team approves your app after testing, you need to fill out a form for marketplace listing. This form will include details that will be published on your app’s landing page on the Chargebee marketplace. Also, you need to share product screenshots or videos as required.
-- You need to accept a marketplace agreement with Chargebee.
 
-## Publishing your app on the marketplace
-- Why it is important to publish your app on the [marketplace](https://marketplace.chargebee.com/)?
-  - Chargebee’s marketplace is a platform where merchants can discover and install apps that extend Chargebee’s capabilities. By listing your app on the marketplace, you can reach out to a wider audience of Chargebee merchants.
-  - Once your app is listed on the marketplace, merchants can install your app with a single click and start using it immediately.
-  - You can also leverage Chargebee’s marketing channels to promote your app to a wider audience.
-- Initially, your app will be published as a private app on our marketplace. 
-- Private apps will be accessible to merchants on Chargebee via a private URL or backend configuration. 
-- Once you have five merchants actively engaging with your integration on Chargebee, you can reach out to taxation@chargebee.com to make your app public.
-- Our team will review your request and make your app public.
+1. **Complete Development & Testing**
+  - Develop and test the app service based on the requirements mentioned here: [Developing an App to Integrate with Chargebee](#developing-an-app-to-integration-with-chargebee).
+
+2. **Fill Configurations & Capabilities**
+  - Fill the configuration and capabilities details of your app [here](https://tinyurl.com/cb-partner-app-registration) and generate the JSON.
+  - Use the JSON Schema(Attach github link) for reference.
+
+3. **Submit Details to Chargebee**
+  - Send the completed configurations, capabilities details, and test suite results to the Chargebee team at **taxation@chargebee.com**(Update Chargebee Partners EmailID).
+
+4. **Internal Review & Testing**
+  - Once submitted, Chargebee's internal review team will test your integration through a combination of **manual and automated testing**.
+  - Your integration will also undergo **stress testing** to ensure it can handle Chargebee’s peak loads.
+
+5. **Marketplace Listing Form**
+  - After the review team approves your app, fill out the marketplace listing form which will be provided by Chargebee team. This form will include:
+    - Details to be published on your app’s landing page on the Chargebee marketplace.
+    - Product screenshots or videos as required.
+
+6. **Accept the Marketplace Agreement**
+  - Review and accept the **marketplace agreement** with Chargebee.
+
+---
+
+## Publishing Your App on the Marketplace
+
+### Why Publish on the [Chargebee Marketplace](https://marketplace.chargebee.com/)?
+- **Visibility**: The marketplace is a platform where merchants discover and install apps to extend Chargebee’s capabilities.
+- **Ease of Use**: By listing your app, merchants can install it with a single click and start using it immediately.
+- **Promotion**: Leverage Chargebee’s marketing channels to reach a broader audience of merchants.
+
+### Publication Process
+1. **Private App Launch**
+  - Initially, your app will be published as a **private app** on the marketplace.
+  - Private apps are accessible to merchants via a **private URL** or through backend configuration.
+
+2. **Transition to Public App**
+  - Once at least **five merchants** actively use your integration, you can request to make your app public by contacting **taxation@chargebee.com**.
+  - Chargebee’s team will review your request and approve your app for public listing.
+
+By following these steps, your app will be successfully published on the Chargebee marketplace, reaching a wider audience and enhancing its visibility and usage.  
+will review your request and make your app public.
