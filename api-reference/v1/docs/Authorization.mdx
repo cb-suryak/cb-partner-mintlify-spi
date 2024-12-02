@@ -1,0 +1,44 @@
+---
+stoplight-id: upohpgnjav634
+---
+
+## Overview
+Chargebee employs **HTTP header-based authorization** for all API endpoints related to the Service Adapter. This ensures secure and dynamic management of authorization credentials during API interactions.
+
+## How It Works
+- The **Authorization Key** for API calls is dynamically passed in the HTTP header, ensuring secure and seamless integration.
+- This key is defined in the `api_configuration` object, which is part of the JSON configuration used during onboarding in Chargebee's marketplace. (Attach link)
+- During the app onboarding process in Chargebee, merchants provide the required authorization parameter values.
+- The Chargebee app utilizes these values to authenticate and make API calls to the Service Adapter.
+
+
+## Structure of `credential_configuration`
+- The `credential_configuration` is an array of objects, where each object represents a credential parameter.
+- Each object includes the following attributes:
+    - **`id`**: A unique identifier for the credential (e.g., `authorization_key`, `client_secret`).
+    - **`name`**: A descriptive label for the credential.
+    - **`type`**: The type of the credential (e.g., `text`).
+    - **`is_sensitive`**: Indicates whether the credential is sensitive.
+
+## JSON Configuration Example
+
+```json
+{
+  "api_configuration": {
+    "api_base_url": "https://chargebee.partnerX.com/v1",
+    "credential_configuration": [ 
+      {
+        "id": "api_key",
+        "name": "API Key", 
+        "type": "text",
+        "is_sensitive": true 
+      },
+      {
+        "id": "company_code",
+        "name": "Company code",
+        "type": "text",
+        "is_sensitive": false
+      }
+    ]
+  }
+}
