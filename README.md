@@ -74,6 +74,17 @@ These SPIs allow partners to build custom adapters by implementing the SPI-defin
 
 ## Steps to update mintlify’s files for creating a SPI endpoint or new openAPISpec
 
+#### Prerequisites
+
+#### 1. Install Node.js and npm
+- Node.js and npm are required to run the Mintlify CLI.    
+
+#### 2. Install Mintlify CLI
+- Install the Mintlify CLI globally to manage documentation and generate .mdx files:
+  ```bash
+  npm i -g mintlify
+  ```
+
 #### 1. Generate mdx files for SPI endpoint or new openAPISpec
 - Use the following command to create mdx files for the endpoints from the openAPI spec file you have added or made changes to
   ```bash
