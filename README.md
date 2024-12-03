@@ -12,6 +12,30 @@ Currently, Chargebee offer SPIs for the following capabilities:
 
 These SPIs allow partners to build custom adapters by implementing the SPI-defined endpoints. The detailed OpenAPI specifications for these SPIs can be found in the spec/spi folder of the repository.
 
+## Setup with Mintlify
+
+#### 1. Clone the repo
+- Clone repository in local
+
+```bash
+    git clone git@github.com:chargebee/cb-provider-spi.git
+```
+
+#### 2. Install the Mintlify CLI
+- Install the Mintlify CLI globally using npm:
+
+```bash
+    npm i -g mintlify
+```
+
+#### 3. Run Local Development Server
+- For local preview of documentation run below command:
+
+```bash
+    mintlify dev
+```
+
+
 ## Steps to Add or Update a SPI Using OpenAPI Specification
 
 #### 1. Modify the OpenAPI Specification
