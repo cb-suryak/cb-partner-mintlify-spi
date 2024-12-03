@@ -58,12 +58,12 @@ servers:
   - url: 'https://sandbox.taxes.provider.com/api/v1'
     description: Sandbox SPI server.
   - url: https://{username}.server.com:{port}/{version}
-  - description: Dynamic SPI Server
-  - variables:
+    description: Dynamic SPI Server
+    variables:
       username:
         default: demo
       port:
-        default: abcd
+        default: 8080
       version:
         default: v1
 tags:
