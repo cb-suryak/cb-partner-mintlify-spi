@@ -23,6 +23,9 @@
     }
   },
   "layout": "sidenav",
+  "background": {
+    "style": "gradient"
+  },
   "topbarLinks": [
     {
       "name": "Support",
