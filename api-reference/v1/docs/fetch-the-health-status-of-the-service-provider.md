@@ -1,18 +1,18 @@
 # Fetch the Health Status of the Service Provider
 
-## Overview
-This endpoint allows you to check the health status of the Service Provider, which includes the health of various internal components such as the application database and API servers. The endpoint responds with detailed status information about the service and its components.
+### Overview
+Use this endpoint to check the health status of the service provider, including the status of its internal components such as the application database and API servers. The endpoint returns detailed status information about the service and its components.
 
 ### Endpoint
 `GET /health`
 
 ### Summary
-Fetches the current health status of the service provider and the associated components. The response contains the overall service status and the status of individual components, including the database and server.
+Fetch the current health status of the service provider and its components. The response includes the overall service status and the status of individual components, such as the database and server.
 
 ### Responses
 
-#### 200 - Service is healthy
-A successful response with a status code of `200` indicates that the service is healthy. The response will include the overall status and details of individual components.
+#### 200 - Service is Healthy
+A `200` response indicates that the service is healthy. The response provides the overall status along with detailed information about individual components.
 
 Example Response:
 

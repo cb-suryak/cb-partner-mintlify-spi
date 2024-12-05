@@ -3,21 +3,21 @@ stoplight-id: upohpgnjav634
 ---
 
 ## Overview
-Chargebee employs **HTTP header-based authorization** for all API endpoints related to the Service Adapter. This ensures secure and dynamic management of authorization credentials during API interactions.
+Chargebee uses [**HTTP header-based authorization**](https://datatracker.ietf.org/doc/html/rfc7235) for all API endpoints related to the Service Adapter. This approach ensures secure and dynamic management of authorization credentials during API interactions.
 
 ## How It Works
-- The **Authorization Key** for API calls is dynamically passed in the HTTP header, ensuring secure and seamless integration.
-- This key is defined in the `api_configuration` object, which is part of the JSON configuration used during onboarding in Chargebee's marketplace. (Attach link)
-- During the app onboarding process in Chargebee, merchants provide the required authorization parameter values.
-- The Chargebee app utilizes these values to authenticate and make API calls to the Service Adapter.
+- The **Authorization Key** for API calls is dynamically passed in the HTTP header, enabling secure and seamless integration.
+- This key is specified in the `[api_configuration](url)` object, which is part of the JSON configuration used during onboarding in Chargebee's marketplace. (Attach link)
+- During the application onboarding process in Chargebee, merchants provide the necessary authorization parameter values.
+- The Chargebee application uses these values to authenticate and make API calls to the Service Adapter.
 
 
 ## Structure of `credential_configuration`
 - The `credential_configuration` is an array of objects, where each object represents a credential parameter.
 - Each object includes the following attributes:
-    - **`id`**: A unique identifier for the credential (e.g., `authorization_key`, `client_secret`).
-    - **`name`**: A descriptive label for the credential.
-    - **`type`**: The type of the credential (e.g., `text`).
+    - **`id`**: A unique identifier for the credential. For example, `authorization_key` or `client_secret`.
+    - **`name`**: A descriptive label of the credential.
+    - **`type`**:The credential type. For example, `text`.
     - **`is_sensitive`**: Indicates whether the credential is sensitive.
 
 ## JSON Configuration Example
