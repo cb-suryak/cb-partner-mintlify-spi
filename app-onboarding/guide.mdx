@@ -56,8 +56,8 @@ By following these guidelines, you can ensure a seamless onboarding process and 
       **Note**: Uninformed downtimes may lead to the app being **delisted** from the marketplace. 
 
 2. **Rate Limiting**
-    - Support up to **500 requests per minute** for Chargebee's enterprise customers.
-    - Ensure tax calculation endpoints handle at least **300 requests per minute per customer**. This capacity will be tested during integration, and it is recommended to ensure the app adheres to this limit.
+    - Rate limiting is enforced based on the Chargebee customer's subscription plan. Detailed information is available [here](https://apidocs.chargebee.com/docs/api/error-handling?lang=curl#api_rate_limits)
+    - The App must account for these rate limits and implement appropriate mechanisms to handle requests within the allowed capacity.
 
 3. **Latency**
 - Respond within a **maximum latency of 250ms** per request. Latencies exceeding this threshold are considered unacceptable.
@@ -66,7 +66,6 @@ By following these guidelines, you can ensure a seamless onboarding process and 
     - Provide a consistent and positive experience to merchants.
 
 5. **Scalability**
-
     - The integrated app must support the same scalability standards as Chargebee. It must handle up to **1200 line items(TBU) per invoice**, with provisions for future scaling. Tax providers should be prepared to scale accordingly and handle at least these volumes, with the capability to adapt to future requirements.
 
 6. **Security & Certifications**
@@ -81,9 +80,9 @@ By following these guidelines, you can ensure a seamless onboarding process and 
 1. **Complete Development & Testing**
   - Develop and test the app service based on the requirements mentioned here: [Developing an App to Integrate with Chargebee](#developing-an-app-to-integration-with-chargebee).
 
-2. **Fill Configurations & Capabilities**
-  - Fill the configuration and **capabilities** details of your app [here](https://tinyurl.com/cb-partner-app-registration) and generate the JSON.
-  - Use the JSON Schema(Attach github link) for reference.
+2. **Fill Configuration & Capability**
+  - Fill the configuration and **capability** details of your app [here](https://tinyurl.com/cb-partner-app-registration) and generate the JSON.
+  - Use the [JSON Schema](https://github.com/chargebee/cb-provider-spi/blob/main/spec/capabilities/tax-provider.schema.json) for reference.
 
 3. **Submit Details to Chargebee**
   - Send the completed configurations, capabilities details, and test suite results to the Chargebee team at **taxation@chargebee.com**(Update Chargebee Partners EmailID).
