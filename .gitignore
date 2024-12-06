@@ -19,3 +19,8 @@ hs_err_pid*
 /build
 /.idea/
 /generated/
+
+#OSX
+.DS_Store
+*/.DS_Store
+

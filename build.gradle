@@ -21,8 +21,8 @@ repositories {
 }
 
 java {
-    sourceCompatibility = "17"
-    targetCompatibility = "17"
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
 }
 
 def loadSpecConfig() {
@@ -63,6 +63,16 @@ def openApiTask() {
             id.set(spec.projectName)
             version.set(project.version)
             configFile.set("$rootDir/spec/spi/config.yml")
+
+            doLast {
+                def generatedApiDir = "$rootDir/generated/$spec.name/api"
+                def targetApiDir = "$rootDir/spec/spi/generated/$spec.name/api"
+                copy {
+                    from generatedApiDir
+                    into targetApiDir
+                    include '**/*.yaml'
+                }
+            }
         }
 
         validateSpec.dependsOn(validateTaskName)
