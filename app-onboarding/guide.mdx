@@ -5,91 +5,76 @@ description: 'Guide to integrate your app with Chargebee and list it on Chargebe
 
 ## Developing an App to Integrate with Chargebee
 
-Chargebee partners can leverage the Service Provider Interfaces (SPIs) (Attach link) to develop apps that seamlessly 
-integrate with Chargebee. These apps extend Chargebee's core capabilities, enabling diverse business use cases.
+Chargebee partners can use the [Service Provider Interfaces (SPIs)](url) to develop apps that seamlessly integrate with Chargebee. These apps extend Chargebee's core capabilities to support diverse business use cases.
 
-To develop your app with Chargebee, follow these steps:
+### Steps to Develop Your Application
 
-1. **Understand the OpenAPI Specification:**
-Familiarize yourself with the OpenAPI spec and integration details to design and build a suitable app for seamless functionality. 
-2. **Implement SPI-Defined Endpoints:**
-Develop the endpoints as defined in the Service Provider Interface documentation to ensure compatibility with Chargebee's ecosystem.
-3. **Adhere to Requirements:**
-Review the [General Requirements](#general-Requisites) and [Technical Requirements](#technical-requisites) to ensure your app complies with all guidelines.
-4. **Test the Integration:**
-Use the provided Postman collection (Attach link) to validate and test the integration.
+1. **Understand the OpenAPI Specification**: Review the OpenAPI specification and integration details to design and build an app with seamless functionality.
+2. **Implement SPI-Defined Endpoints**: Develop endpoints as outlined in the SPI documentation to ensure compatibility with Chargebee’s ecosystem.
+3. **Adhere to Requirements**: Review the [General Requirements](https://github.com/cb-suryak/cb-partner-mintlify-spi/pull/9/files#general-requisites) and [Technical Requirements](https://github.com/cb-suryak/cb-partner-mintlify-spi/pull/9/files#technical-requisites) to ensure compliance with Chargebee’s guidelines.
+4. **Test the Integration**: Validate and test your integration using the provided [Postman collection](url). 
 
 ## Onboarding Process for Apps via SPIs
 
 ### General Requisites
-To list your app on **Chargebee’s Marketplace** as a solution provider, ensure the following steps are followed:
 
-1. **Compliance with PII Standards**
-  - Chargebee is **Personal Identifiable Information (PII) compliant** and mandates its integrated apps to adhere to the same standards.
-  - Merchant-specific confidential data shared with partner app servers must be handled securely and in compliance with PII requirements.
-  - Your app must provide **Service Level Agreements (SLAs)**, particularly addressing **data deletion** requirements, as part of the agreements with both the merchant and Chargebee.
+To list your app on **Chargebee's Marketplace** as a solution provider, complete the following steps:
 
-2. **Traffic Management**
-  - Partner apps must accept traffic **only from allow-listed servers**, as Chargebee’s infrastructure is designed to operate securely within its ecosystem.
-
-3. **Legal Agreements**
-  - A formal legal contract must be signed between Chargebee and the partner app to establish clear terms and conditions.
-
-4. **Responsibilities as a Capability Solution Provider (e.g., Tax Provider)**
-  - Independently execute agreements with merchants before they begin using your app.
-  - Clearly define the scope of data fetched from Chargebee, including details about customer and sales transaction information.
-
-5. **Pre-Go-Live Deliverables**  
-   Share the following details with the Chargebee team before your app goes live:
-  - **Escalation Matrix**: Define the escalation process for resolving critical issues.
-  - **Merchant Support Email**: Provide a dedicated email for merchant inquiries.
-  - **Partner Support Email**: Share an email address for technical support.
-  - **Merchant User Guides**: Links to detailed guides for merchants to use your app.
-  - **Configuration Documentation**: Documents explaining configurations such as managing API keys and importing plans.
-
-6. **System Status and Maintenance Updates**
-  - Maintain a public **external product status page** to communicate system outages and scheduled maintenance.
-  - This status page must reflect the health status of both the actual service provider and the app.
-
-7. **Terms, Consent, and Privacy Policies**
-  - Publish the following pages on your website:
-    - Terms of Service
-    - Consent Policy
-    - Privacy Policy
+1.  **Compliance with PII Standards**
+    -   Ensure your app complies with **Personal Identifiable Information (PII)** standards.
+    -   Handle merchant-specific confidential data securely and in accordance with PII guidelines.
+    -   Provide **Service Level Agreements (SLAs)** that address data deletion requirements.
+2.  **Traffic Management**
+    -   Accept traffic **only from allow-listed servers** to maintain secure interactions within Chargebee's ecosystem.
+3.  **Legal Agreements**
+    -   Sign a formal agreement with Chargebee to establish clear terms and conditions.
+4.  **Responsibilities as a Solution Provider**
+    -   Execute agreements directly with merchants using your app.
+    -   Clearly define the scope of data accessed from Chargebee, including customer and transaction details.
+5.  **Pre-Go-Live Deliverables**
+    Submit the following details to the Chargebee team:
+    -   **Escalation Matrix**: Define critical issue resolution steps.
+    -   **Merchant Support Email**: Provide contact information for merchant queries.
+    -   **Partner Support Email**: Share a dedicated technical support email.
+    -   **Merchant User Guides**: Include links to detailed guides for merchants.
+    -   **Configuration Documentation**: Explain configurations such as managing API keys and importing plans.
+6.  **System Status and Maintenance Updates**
+    -   Maintain a public **external product status page** to communicate system outages and scheduled maintenance. This status page must reflect the health status of both the actual service provider and the application.
+7.  **Terms, Consent, and Privacy Policies**
+    -   Publish the following policies on your website:
+        -   Terms of Service
+        -   Consent Policy
+        -   Privacy Policy
 
 By following these guidelines, you can ensure a seamless onboarding process and compliance with Chargebee’s standards for integrating apps into its ecosystem.
 
 ### Technical Requisites 
 
-1. **Availability**
-  - The app’s availability must meet the highest standards, with a target of **99.9% uptime**.
-  - If scheduled downtime is required for maintenance, **advance notification** must be provided to Chargebee to minimize the impact on its customers.
-  - **Note**: Uninformed downtimes may lead to the app being **delisted** from the marketplace.
+1.  **Availability**
+      - Ensure **99.9% uptime** for your app.
+      - Provide advance notice for scheduled downtime to minimize disruptions.
+      **Note**: Uninformed downtimes may lead to the app being **delisted** from the marketplace. 
 
 2. **Rate Limiting**
-  - Chargebee’s enterprise customers can make up to **500 requests per minute**.
-  - Tax calculation, being critical to operations, requires integrated apps to handle a minimum of **300 requests per minute per customer**.
-  - This capacity will be tested during integration, and it is recommended to ensure the app adheres to this limit.
+    - Support up to **500 requests per minute** for Chargebee's enterprise customers.
+    - Ensure tax calculation endpoints handle at least **300 requests per minute per customer**. This capacity will be tested during integration, and it is recommended to ensure the app adheres to this limit.
 
 3. **Latency**
-  - apps are expected to respond with a **maximum latency of 250ms** per request.
-  - Latencies exceeding this threshold are considered unacceptable.
+- Respond within a **maximum latency of 250ms** per request. Latencies exceeding this threshold are considered unacceptable.
 
 4. **Quality**
-  - Chargebee aims to deliver high-quality tools to its customers.
-  - As a listed app in the marketplace, your app must provide a **consistent and positive experience** to merchants.
+    - Provide a consistent and positive experience to merchants.
 
 5. **Scalability**
-  - The integrated app must support the same scalability standards as Chargebee.
-  - For example, Chargebee supports up to **1200 line items(TBU) per invoice**, and this number is expected to increase.
-  - Tax providers should be prepared to scale accordingly and handle at least these volumes, with the capability to adapt to future requirements.
+
+    - The integrated app must support the same scalability standards as Chargebee. It must handle up to **1200 line items(TBU) per invoice**, with provisions for future scaling. Tax providers should be prepared to scale accordingly and handle at least these volumes, with the capability to adapt to future requirements.
 
 6. **Security & Certifications**
-  - All communication must occur over **Transport Layer Security (TLS)** to ensure a secure channel.
-  - As Chargebee shares customers’ data, **PII compliance certification** is mandatory to proceed with the agreement.
+  - Use **Transport Layer Security (TLS)** for all communication to ensure a secure channel.
+  - Obtain **PII compliance certification** to proceed with agreements as Chargebee shares customers’ data.
 
 7. **Concurrency Handling**
-  - The app must have the capability to effectively handle **concurrent requests** to ensure smooth operation during peak loads.
+  - Ensure your application can handle **concurrent requests** effectively for seamless operation during peak loads.
 
 ## Go Live Steps
 
@@ -97,7 +82,7 @@ By following these guidelines, you can ensure a seamless onboarding process and 
   - Develop and test the app service based on the requirements mentioned here: [Developing an App to Integrate with Chargebee](#developing-an-app-to-integration-with-chargebee).
 
 2. **Fill Configurations & Capabilities**
-  - Fill the configuration and capabilities details of your app [here](https://tinyurl.com/cb-partner-app-registration) and generate the JSON.
+  - Fill the configuration and **capabilities** details of your app [here](https://tinyurl.com/cb-partner-app-registration) and generate the JSON.
   - Use the JSON Schema(Attach github link) for reference.
 
 3. **Submit Details to Chargebee**

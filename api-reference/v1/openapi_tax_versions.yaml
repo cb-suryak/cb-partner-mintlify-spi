@@ -44,6 +44,15 @@ info:
   title: Taxes Service Adapter SPI
   version: 0.3.7
 servers:
+- description: Dynamic SPI Server
+  url: https://{username}.server.com:{port}/{version}
+  variables:
+    username:
+      default: demo
+    port:
+      default: abcd
+    version:
+      default: v1
 - description: Production SPI server.
   url: https://rest.taxes.provider.com/api/v1
 - description: Sandbox SPI server.
