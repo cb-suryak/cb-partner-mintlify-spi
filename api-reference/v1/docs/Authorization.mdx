@@ -46,17 +46,17 @@ Chargebee uses [**HTTP header-based authorization**](https://datatracker.ietf.or
 
 ## Authorization Header
 
-Below is the structure of authorization header that will be passed from chargebee_app to tax_provider_app
+Below is the structure of authorization header that will be passed from Chargebee app to Service Adapter. Some of the 
+parameters are sent by default by Chargebee as mentioned in the example below:
 
 ```json
 {
 --header 'Authorization: 
 {
-  "client_id": "client_id_partnerX", 
-  "client_secret": "client_secret_partnerX",
-  "merchant_id": "merchant_id_partnerX",
-  "company_code": company_code_partnerX",
-  "host": "https://sandboxap2.partnerX.com//"
+  "api_key": "client_id_partnerX", 
+  "merchant_id": "merchant_id_partnerX", //sent by Chargebee by default
+  "company_code": "company_code_partnerX", //sent by Chargebee by default
+  "trace_id": "https://sandboxap2.partnerX.com" //sent by Chargebee by default
 }
 '
 }
