@@ -1,0 +1,453 @@
+{
+	"info": {
+		"_postman_id": "e6b3be35-036f-418f-aae4-755da0941ede",
+		"name": "Tax Adapter - TRN Validate API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20298222",
+		"_collection_link": "https://universal-meadow-737083.postman.co/workspace/CB---Ashok-Test-Site~e9c144f8-0d3b-4b28-ad69-688594a58079/collection/20298222-e6b3be35-036f-418f-aae4-755da0941ede?action=share&source=collection_link&creator=20298222"
+	},
+	"item": [
+		{
+			"name": "Tin Validate",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{\"api_key\": \"{{private-token}}\" , \"host\" :\"https://services.taxamo.com\"}",
+						"type": "text"
+					},
+					{
+						"key": "trace_id",
+						"value": "request-100",
+						"type": "text"
+					},
+					{
+						"key": "merchant_id",
+						"value": "test",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"trn\": \"715407158\",\n    \"country\": {\n        \"code\": \"GB\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{host}}/taxamo/v1/trn/validate",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"taxamo",
+						"v1",
+						"trn",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trn Validate Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/trn/taxamo/v1/trn/validate/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trn",
+						"taxamo",
+						"v1",
+						"trn",
+						"validate",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trn Batch Validate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"batchName\": \"first\",\n    \"tinValidationRequests\": [ \n        {\n            \"tin\": \"123\",\n            \"country\": {\n                \"code\": \"FR\"\n            }\n        },\n        {\n            \"tin\": \"124\",\n            \"country\": {\n                \"code\": \"FR\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/trn/taxamo/v1/trn/validate/batch",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trn",
+						"taxamo",
+						"v1",
+						"trn",
+						"validate",
+						"batch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trn Batch Validate Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/trn/taxamo/v1/trn/validate/batch/1?offset=100&limit=10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trn",
+						"taxamo",
+						"v1",
+						"trn",
+						"validate",
+						"batch",
+						"1"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "100"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trn Batch Validate Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/trn/taxamo/v1/trn/validate/batch/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trn",
+						"taxamo",
+						"v1",
+						"trn",
+						"validate",
+						"batch",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Credentials",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{\"merchant_id\":\"123\", \"api_key\": \"{{taxamo_key}}\"}",
+						"type": "text"
+					},
+					{
+						"key": "trace_id",
+						"value": "123",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/trn/taxamo/v1/credentials/validate",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trn",
+						"taxamo",
+						"v1",
+						"credentials",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check health",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{\"merchant_id\":\"123\", \"api_key\": \"{{taxamo_key}}\" }",
+						"type": "text"
+					},
+					{
+						"key": "trace_id",
+						"value": "123",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/trn/taxamo/v1/health",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trn",
+						"taxamo",
+						"v1",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tin Validate - Predev",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{\"merchant_id\":\"123\", \"api_key\": \"{{private-token}}\" }",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"trn\": \"715407158\",\n    \"country\": {\n        \"code\": \"GB\"\n    }\n}"
+				},
+				"url": {
+					"raw": "https://app.taxadapter-service.predev38.in/taxamo/v1/trn/validate",
+					"protocol": "https",
+					"host": [
+						"app",
+						"taxadapter-service",
+						"predev38",
+						"in"
+					],
+					"path": [
+						"taxamo",
+						"v1",
+						"trn",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tin Validate - taxId",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{\"merchant_id\":\"123\", \"api_key\": \"{{taxIdKey}}\" }",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"trn\": \"715407158\",\n    \"country\": {\n        \"code\": \"GB\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{host}}/taxId/v1/trn/validate",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"taxId",
+						"v1",
+						"trn",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tin Validate - Dev - Taxamo",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{\"api_key\": \"{{private-token}}\" , \"host\" :\"https://services.taxamo.com\", \"merchant_id\": \"111\"}",
+						"type": "text"
+					},
+					{
+						"key": "trace_id",
+						"value": "request-100",
+						"type": "text"
+					},
+					{
+						"key": "merchant_id",
+						"value": "test",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"trn\": \"715407158\",\n    \"country\": {\n        \"code\": \"GB\"\n    }\n}"
+				},
+				"url": {
+					"raw": "https://taxamo.cb-taxadapter-service.devcb.in/taxamo/v1/trn/validate",
+					"protocol": "https",
+					"host": [
+						"taxamo",
+						"cb-taxadapter-service",
+						"devcb",
+						"in"
+					],
+					"path": [
+						"taxamo",
+						"v1",
+						"trn",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"//pm.environment.set(\"host\", \"https://app.taxadapter-service.predev38.in\");",
+					"//pm.environment.set(\"taxamo_key\", \"<taxamo-api-private-key>\");",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
