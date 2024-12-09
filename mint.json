@@ -75,7 +75,7 @@
             {
               "group": "TaxEstimate",
               "pages": [
-                "api-reference/v1/taxestimate/estimate-tax"
+                "api-reference/v1/endpoint/estimate-tax"
               ]
             },
             {
@@ -150,11 +150,5 @@
         "app-onboarding/guide"
       ]
     }
-  ],
-
-  "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
-  }
+  ]
 }
