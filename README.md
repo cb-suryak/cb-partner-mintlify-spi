@@ -1,3 +1,14 @@
+## Table of Contents
+- [What is Partner SPIs?](#what-is-partner-spis)
+- [What are the available Chargebee Partner SPIs](#what-are-the-available-chargebee-partner-spis)
+- [Setup with Mintlify](#setup-with-mintlify)
+- [Steps to Add or Update a SPI Using OpenAPI Specification](#steps-to-add-or-update-a-spi-using-openapi-specification)
+- [Steps to Update Mintlify's Files for Creating a SPI Endpoint or New OpenAPISpec](#steps-to-update-mintlyfis-files-for-creating-a-spi-endpoint-or-new-openapispec)
+- [JSON Schema Validation](#json-schema-validation)
+- [Steps to Follow Release (Chargebee Owned)](#steps-to-follow-releasechargebee-owned)
+- [Updating & Using Postman Collection](#updating--using-postman-collection)
+
+
 ## What is Partner SPIs?
 Chargebee supports a wide range of third-party integrations to deliver enhanced functionalities to its customers. To facilitate this, Chargebee provides Service Provider Interfaces (SPIs), defined in the OpenAPI specification, for various capabilities.
 
