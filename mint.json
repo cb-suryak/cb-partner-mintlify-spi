@@ -29,7 +29,7 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "support@chargebee.com"
+      "url": "mailto:support@chargebee.com"
     }
   ],
   "tabs": [
