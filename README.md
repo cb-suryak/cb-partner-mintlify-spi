@@ -12,22 +12,14 @@ Currently, Chargebee offer SPIs for the following capabilities:
 
 These SPIs allow partners to build custom adapters by implementing the SPI-defined endpoints. The detailed OpenAPI specifications for these SPIs can be found in the spec/spi folder of the repository.
 
+
 ## Setup with Mintlify
-- Chargebee uses Mintlify tool to host the SPI docs. Please follow the below steps to setup locally.
+- Chargebee uses Mintlify tool to host the SPI docs.
+For detailed local setup instructions, please refer to our [Setup Guide](local_setup/development.mdx).
 
-#### 1. Install the Mintlify CLI
-- Install the Mintlify CLI globally using npm:
-
-```bash
-    npm i -g mintlify
-```
-
-#### 2. Run Local Development Server
-- For local preview of documentation run below command:
-
-```bash
-    mintlify dev
-```
+The guide covers:
+- Installing the Mintlify CLI
+- Running the local development server
 
 
 ## Steps to Add or Update a SPI Using OpenAPI Specification
