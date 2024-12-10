@@ -56,59 +56,59 @@
           "group": "Partner SPI",
           "version": "v1",
           "pages": [
-            "api-reference/v1/Overview"
+            "api-reference/Partner_SPIs/Overview"
           ]
         },
         {
           "group": "Tax SPI",
           "version": "v1",
           "pages": [
-            "api-reference/v1/tax_spi/Overview",
-            "api-reference/v1/docs/Authorization",
+            "api-reference/tax_spi/Docs/Overview",
+            "api-reference/tax_spi/Docs/Authorization",
             {
               "group": "Address",
               "pages": [
-                "api-reference/v1/endpoint/address-validation",
-                "api-reference/v1/endpoint/check-taxability"
+                "api-reference/tax_spi/Endpoints/v1/address-validation",
+                "api-reference/tax_spi/Endpoints/v1/check-taxability"
               ]
             },
             {
               "group": "TaxEstimate",
               "pages": [
-                "api-reference/v1/endpoint/estimate-tax"
+                "api-reference/tax_spi/Endpoints/v1/estimate-tax"
               ]
             },
             {
               "group": "Invoice",
               "pages": [
-                "api-reference/v1/endpoint/create-invoice",
-                "api-reference/v1/endpoint/retrieve-invoice",
-                "api-reference/v1/endpoint/commit-invoice",
-                "api-reference/v1/endpoint/void-invoice"
+                "api-reference/tax_spi/Endpoints/v1/create-invoice",
+                "api-reference/tax_spi/Endpoints/v1/retrieve-invoice",
+                "api-reference/tax_spi/Endpoints/v1/commit-invoice",
+                "api-reference/tax_spi/Endpoints/v1/void-invoice"
               ]
             },
             {
               "group": "CreditNote",
               "pages": [
-                "api-reference/v1/endpoint/create-credit-note",
-                "api-reference/v1/endpoint/retrieve-credit-note",
-                "api-reference/v1/endpoint/commit-credit-note",
-                "api-reference/v1/endpoint/void-credit-note"
+                "api-reference/tax_spi/Endpoints/v1/create-credit-note",
+                "api-reference/tax_spi/Endpoints/v1/retrieve-credit-note",
+                "api-reference/tax_spi/Endpoints/v1/commit-credit-note",
+                "api-reference/tax_spi/Endpoints/v1/void-credit-note"
               ]
             },
             {
               "group": "Authentication",
               "pages": [
-                "api-reference/v1/endpoint/validate-credentials"
+                "api-reference/tax_spi/Endpoints/v1/validate-credentials"
               ]
             },
             {
               "group": "Health",
               "pages": [
-                "api-reference/v1/endpoint/fetch-the-health-status-of-the-service-provider"
+                "api-reference/tax_spi/Endpoints/v1/fetch-the-health-status-of-the-service-provider"
               ]
             },
-        "api-reference/v1/tax_spi/TestingwithPostman"
+        "api-reference/tax_spi/Docs/TestingwithPostman"
             
           ]
         },
@@ -116,31 +116,30 @@
           "group": "Tax Registration Number Validation SPI",
           "version": "v1",
           "pages": [
-            "api-reference/v1/tax_reg_number_validate/Overview",
-            "api-reference/v1/docs/Authorization",
-            {
-              "group": "TRN Validation",
-              "pages": [
-                "api-reference/v1/trnvalidate/validate-the-tax-registration-numbers-in-batch",
-                "api-reference/v1/trnvalidate/validate-the-tax-registration-number",
-                "api-reference/v1/trnvalidate/get-the-response-of-tax-registration-number-validate-request",
-                "api-reference/v1/trnvalidate/get-the-response-of-batch-of-tax-registration-numbers",
-                "api-reference/v1/trnvalidate/delete-the-request-of-batch-of-tax-registration-numbers-validation"
-              ]
-            },
+            "api-reference/tax_reg_number_validate/Docs/Overview",
             {
               "group": "Authentication",
               "pages": [
-                "api-reference/v1/authentication/validate-credentials"
+                "api-reference/tax_reg_number_validate/Endpoints/v1/validate-credentials"
               ]
             },
             {
               "group": "Health",
               "pages": [
-                "api-reference/v1/health/fetch-the-health-status-of-the-service-provider"
+                "api-reference/tax_reg_number_validate/Endpoints/v1/fetch-the-health-status-of-the-service-provider"
               ]
             },
-            "api-reference/v1/tax_reg_number_validate/TestingwithPostman"
+            {
+              "group": "TRN Validation",
+              "pages": [
+                "api-reference/tax_reg_number_validate/Endpoints/v1/validate-the-tax-registration-numbers-in-batch",
+                "api-reference/tax_reg_number_validate/Endpoints/v1/validate-the-tax-registration-number",
+                "api-reference/tax_reg_number_validate/Endpoints/v1/get-the-response-of-tax-registration-number-validate-request",
+                "api-reference/tax_reg_number_validate/Endpoints/v1/get-the-response-of-batch-of-tax-registration-numbers",
+                "api-reference/tax_reg_number_validate/Endpoints/v1/delete-the-request-of-batch-of-tax-registration-numbers-validation"
+              ]
+            },
+            "api-reference/tax_reg_number_validate/Docs/TestingwithPostman"
           ]
         }
       ]
