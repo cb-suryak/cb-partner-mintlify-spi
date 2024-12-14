@@ -879,8 +879,7 @@ paths:
   /address/validate:
     post:
       description: Checks whether a given address is a valid delivery address for
-        shipping purposes. The tax provider can decide whether to mention the full
-        or valid address depending on their requirement.
+        shipping purposes.
       operationId: validateAddress
       requestBody:
         content:

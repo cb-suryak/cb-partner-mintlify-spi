@@ -370,7 +370,7 @@ paths:
   /address/validate:
     post:
       summary: "Address validation"
-      description: "Checks whether a given address is a valid delivery address for shipping purposes. The tax provider can decide whether to mention the full or valid address depending on their requirement."
+      description: "Checks whether a given address is a valid delivery address for shipping purposes."
       operationId: validateAddress
       tags:
         - Address
