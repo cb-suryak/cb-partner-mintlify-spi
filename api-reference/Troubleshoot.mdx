@@ -1,0 +1,25 @@
+The `trace_id` included in the Authorization header is a unique identifier that helps track API requests across systems. It's a valuable tool for troubleshooting issues such as failed requests, authentication errors, or slow responses.
+
+### How to Use `trace_id` for Troubleshooting:
+
+1. **Locate the `trace_id`:**  
+The `trace_id` is found in the Authorization header of the API request, for example:
+```json
+{
+--header 'Authorization: 
+{
+  "api_key": "client_id_partnerX", 
+  "merchant_id": "merchant_id_partnerX", //sent by Chargebee by default
+  "company_code": "company_code_partnerX", //sent by Chargebee by default
+  "trace_id": "12345-abcde-67890" //sent by Chargebee by default
+}
+'
+}
+```
+2. **Track Requests Across Systems:** 
+Use the trace_id to trace the request through your logs and identify where issues may have occurred.
+
+3. **Common Issues to Troubleshoot:** 
+- Authentication Errors (401/403): Verify api_key and merchant_id.
+- Data Mismatches: Trace the request to spot discrepancies.
+- Timeouts or Slow Responses: Use the trace_id to identify bottlenecks.
