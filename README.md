@@ -10,7 +10,10 @@ Currently, Chargebee offer SPIs for the following capabilities:
 - [Tax](https://chargebee.mintlify.app/api-reference/v2/docs/Overview) <!-- should we have a better name for this? -->
 - [Tax Registration Number Validation](https://chargebee.mintlify.app/api-reference/v2/docs/Overview)
 
-These SPIs allow partners to build custom adapters by implementing the SPI-defined endpoints. The detailed OpenAPI specifications for these SPIs can be found in the spec/spi folder of the repository.
+These SPIs allow partners to build custom adapters by implementing the SPI-defined endpoints. The detailed OpenAPI specifications for these SPIs can be found in the spec/spi folder of the repository:
+
+- [Tax SPI](./spec/spi/openapi_tax.yml) <!-- should we have a better name for this? -->
+- [Tax Registration Number Validation SPI](./spec/spi/openapi_trn.yml)
 
 ## Setup with Mintlify
 - Chargebee uses Mintlify tool to host the SPI docs. Please follow the below steps to setup locally.
