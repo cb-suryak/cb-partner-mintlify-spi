@@ -14,19 +14,6 @@ These SPIs allow partners to build custom adapters by implementing the SPI-defin
 
 - [Tax SPI](./spec/spi/openapi_tax.yml) <!-- should we have a better name for this? -->
 - [Tax Registration Number Validation SPI](./spec/spi/openapi_trn.yml)
-
-## Setup with Mintlify
-
-For detailed instructions, check out the [Local Setup](docs/localsetup.md).
-
-## Steps to Add or Update a SPI Using OpenAPI Specification
-
-For detailed instructions, check out the [Add or Update a SPI](docs/add_update_spi.md).
-
-## Steps to update mintlify’s files for creating a SPI endpoint or new openAPISpec
-
-For detailed instructions, check out the [Update Mintlify Files](docs/mintlify_files.md).
-
 <!--
 ## Getting Started
 
@@ -99,9 +86,6 @@ Example:
   sh json_schema_validation.sh spec/capabilities/tax-provider.file.json
 ```
 
-## Steps to follow release(Chargebee owned)
-For detailed instructions, check out the [Release](docs/release.md).
-
 ## Updating & Using Postman Collection (TO BE ADDED)
 
 - Postman test suites comprising test cases for each SPI endpoint is available in the `postman/<capability_name>` directory.  
@@ -110,3 +94,10 @@ For detailed instructions, check out the [Release](docs/release.md).
 - Any changes made to the OpenAPI specification **MUST** be accompanied by adding or updating the corresponding test cases in the Postman collection.
 
 - To test the SPI endpoints, import the Postman collection into your Postman workspace or Chargebee workspace.([Attach link here - TBA]) 
+
+## Chargebee Internal Usage Content
+
+- [Local Setup](docs/localsetup.md)
+- [Add or Update a SPI](docs/add_update_spi.md)
+- [Update Mintlify Files](docs/mintlify_files.md)
+- [Release](docs/release.md)
