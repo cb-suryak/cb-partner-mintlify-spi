@@ -11,7 +11,7 @@
 #### 1.3 Add a New SPI in a New OpenAPI Specification
 - Create a new OpenAPI specification file named `openapi_<capability_name>.yml` inside the `spec/spi/` directory.  
   **Example:** `spec/spi/openapi_tax.yml`.
-- Update the [spec.config](spec.config) file to include the new file configuration.
+- Update the [spec.config](../spec.config) file to include the new file configuration.
 
 
 #### 2. Validate the OpenAPI Specification
@@ -53,4 +53,4 @@
 - The generated SPI jar will be located in the `./build/libs/` directory.
 
 #### 5. Update postman collection
-- Refer to the [Updating & Using Postman Collection (TO BE ADDED)](#updating--using-postman-collection-to-be-added) section to follow the steps to update the Postman collection.
+- Refer to the [Updating & Using Postman Collection (TO BE ADDED)](../README.md#updating--using-postman-collection-to-be-added) section to follow the steps to update the Postman collection.
